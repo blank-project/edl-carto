@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    if (user.username === 'admin')
+      p Connecté en tant qu'
+        b administrateur
+      a(href="/logout") Logout
+    else
+      p Connecté en tant que 
+        b #{user.username}
+      a(href="/logout") Logout
