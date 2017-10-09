@@ -13,7 +13,7 @@ router.post('/register', function(req, res, next) {
         if (err) {
           return res.render('register', { error : err.message });
         }
-        res.render('panel-admin');
+        res.redirect('/panel');
     });
 });
 
@@ -45,7 +45,7 @@ router.get('/remove', function(req, res) {
     Account.remove({_id : req.query.id}, function (err) {
   if (err) return handleError(err);
     res.redirect('/panel');
-})}
+  })}
 });
 
 router.get('/logout', function(req, res) {
