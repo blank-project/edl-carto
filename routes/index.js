@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/register', function(req, res, next) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    Account.register(new Account({ username : req.body.username, email : req.body.email }), req.body.password, function(err, account) {
         if (err) {
           return res.render('register', { error : err.message });
         }
@@ -26,17 +26,27 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 router.get('/panel', function(req, res) {
-  console.log(req.user);
   if(req.user.username=='admin') {
-    res.render('panel-admin', { user : req.user });
-    console.log("log as admin");
+    Account.find({}).exec(function(err, result) {
+      if (!err) {
+        res.render('panel-admin', { user : req.user, accounts :  result})
+        console.log(result[0].username);
+      } else {
+        // error handling
+      }
+    })
   } else {
     res.render('panel', { user : req.user });
-    console.log("log as user");
   }
 });
 
-
+router.get('/remove', function(req, res) {
+  if(req.query.id) {
+    Account.remove({_id : req.query.id}, function (err) {
+  if (err) return handleError(err);
+    res.redirect('/panel');
+})}
+});
 
 router.get('/logout', function(req, res) {
     req.logout();

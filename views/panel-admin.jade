@@ -9,8 +9,26 @@ block content
       .form-group
           input.form-control(type='text', name="username", placeholder='Enter Username')
       .form-group
+          input.form-control(type='email', name="email", placeholder='Enter Email')
+      .form-group
         input.form-control(type='password', name="password", placeholder='Password')
       button.btn.btn-default(type='submit') Submit
-      &nbsp;
+       &nbsp;
       a(href='/')
         button.btn.btn-primary(type="button") Cancel
+        
+    table.table
+      thead
+        tr
+          th Identifiant
+          th Mail
+          th Modifier
+          th Supprimer
+      tbody
+        each item in accounts
+          tr
+            td= item.username
+            td= item.email
+            td
+            td
+              a(href='/remove?id='+item._id) X
