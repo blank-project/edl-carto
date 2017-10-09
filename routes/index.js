@@ -34,8 +34,20 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+    res.redirect('/panel');
 });
+
+router.get('/panel', function(req, res) {
+  if(req.user.username=='admin') {
+    res.render('panel-admin', { user : req.user });
+    console.log("log as admin");
+  } else {
+    res.render('panel', { user : req.user });
+    console.log("log as user");
+  }
+});
+
+
 
 router.get('/logout', function(req, res) {
     req.logout();
