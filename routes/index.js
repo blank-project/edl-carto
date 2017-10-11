@@ -26,18 +26,58 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 router.get('/panel', function(req, res) {
+  console.log(req.session.passport.user);
   if(req.user.username=='admin') {
     Account.find({}).exec(function(err, result) {
       if (!err) {
-        res.render('panel-admin', { user : req.user, accounts :  result})
-        console.log(result[0].username);
+        res.render('panel-admin', { user : req.user, accounts : result})
       } else {
         // error handling
       }
     })
   } else {
-    res.render('panel', { user : req.user });
+    var user = req.user.username
+    Account.findOne({'username': user}).exec(function(err, result) {
+      if (!err) {
+        res.render('panel', { user : req.user, accounts : result})
+      } else {
+        // error handling
+      }
+    })
   }
+});
+
+router.post('/panel', function(req, res) {
+  Account.update({username: req.session.passport.user}, {
+    username: req.body.username,
+    email: req.body.email,
+    structureName: req.body.structureName,
+    structureMail: req.body.structureMail,
+    structurePhone: req.body.structurePhone,
+    adressNb: req.body.adressNb,
+    adressType: req.body.adressType,
+    adressName: req.body.adressName,
+    adressZip: req.body.adressZip,
+    metro: req.body.metro,
+    website: req.body.website,
+    type: req.body.type,
+    public: req.body.public,
+    time: req.body.time,
+    meeting: req.body.meeting
+  }).exec(function(err) {
+    if (!err) {
+      var user = req.user.username
+      Account.findOne({'username': user}).exec(function(err, result) {
+        if (!err) {
+          res.render('panel', { user : req.user, accounts : result})
+        } else {
+          // error handling
+        }
+      });
+    } else {
+      console.log(err);
+    }
+  })
 });
 
 router.get('/remove', function(req, res) {
