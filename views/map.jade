@@ -1,11 +1,22 @@
 extends layout
 
 block content
+
   .container
     #map
+  p
+    =accounts[1].geocoding[0].latitude
   script(type='text/javascript').
-         var map = L.map('map').setView([48.871764,2.385085], 15);
+    var data = !{JSON.stringify(locals)}
+
+    var map = L.map('map').setView([48.871764,2.385085], 15);
          
-         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-         }).addTo(map);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+         
+     // markers
+     for (var i = 0; i < data.accounts.length-1; i++) {
+       if(data.accounts[i].geocoding[0]) {
+         L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).addTo(map);
+       }
+     }

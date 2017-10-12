@@ -8,7 +8,8 @@ var options = {
   provider: 'google',
 
   // Optional depending on the providers
-  httpAdapter: 'https', // Default
+  httpAdapter: 'https',
+  apiKey: 'AIzaSyBP3ilrS1K-woHV9s1_FnnsOqRxW6uDCfo', // Default
   formatter: null         // 'gpx', 'string', ...
 };
 
@@ -64,9 +65,6 @@ router.post('/panel', function(req, res) {
 
   geocoder.geocode(fullAdress)
     .then(function(res1) {
-
-
-
       Account.update({username: req.session.passport.user}, {
         username: req.body.username,
         email: req.body.email,
@@ -91,32 +89,17 @@ router.post('/panel', function(req, res) {
             if (!err) {
               res.render('panel', { user : req.user, accounts : result});
             } else {
-              // error handling
+              console.log(err);
             }
           });
         } else {
           console.log(err);
         }
       })
-
-
-
-
-
-
     })
     .catch(function(err) {
       console.log(err);
     });
-
-
-
-
-
-
-
-
-
 });
 
 router.get('/remove', function(req, res) {
@@ -133,8 +116,15 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/map', function(req, res) {
-
-  res.render('map', { title: 'Express', user: req.user });
+  Account.find({}).exec(function(err, result) {
+    if (!err) {
+      res.render('map', { user : req.user, accounts : result, locals: {
+                data: result
+                }})
+    } else {
+      // error handling
+    }
+  })
 });
 
 
