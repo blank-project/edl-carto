@@ -19,7 +19,8 @@ var Account = new Schema({
     type: Array,
     public: String,
     time: String,
-    meeting: Boolean
+    meeting: Boolean,
+    geocoding: Array
 
 });
 
