@@ -4,8 +4,7 @@ block content
 
   .container
     #map
-  p
-    =accounts[1].geocoding[0].latitude
+
   script(type='text/javascript').
     var data = !{JSON.stringify(locals)}
 
@@ -17,6 +16,7 @@ block content
      // markers
      for (var i = 0; i < data.accounts.length-1; i++) {
        if(data.accounts[i].geocoding[0]) {
-         L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).addTo(map);
+         L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).bindPopup(
+           "<h1>"+ data.accounts[i].structureName +"</h1><p>"+data.accounts[i].geocoding[0].formattedAddress+"</p><p>"+data.accounts[i].website+"</p><p>"+data.accounts[i].metro+"</p>").addTo(map);
        }
      }
