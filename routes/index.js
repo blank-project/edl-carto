@@ -18,7 +18,7 @@ var geocoder = NodeGeocoder(options);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.user });
+  res.render('index', { title: 'Accueil', user: req.user });
 });
 
 router.post('/register', function(req, res, next) {
@@ -31,7 +31,7 @@ router.post('/register', function(req, res, next) {
 });
 
 router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
+    res.render('login', {title: 'Login', user : req.user });
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
@@ -118,7 +118,7 @@ router.get('/logout', function(req, res) {
 router.get('/map', function(req, res) {
   Account.find({}).exec(function(err, result) {
     if (!err) {
-      res.render('map', { user : req.user, accounts : result, locals: {
+      res.render('map', {title: 'Carte', user : req.user, accounts : result, locals: {
                 data: result
                 }})
     } else {

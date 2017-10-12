@@ -1,16 +1,25 @@
 extends layout
 
 block content
-  .container
-    h1 Connexion
-    p.lead Say something worthwhile here.
-    br
-    form(role='form', action="/login",method="post", style='max-width: 300px;')
-      .form-group
-          input.form-control(type='text', name="username", placeholder='Utilisateur')
-      .form-group
-        input.form-control(type='password', name="password", placeholder='Mot de passe')
-      button.btn.btn-default(type='submit') Connexion
-       &nbsp;
-      a(href='/')
-        button.btn.btn-primary(type="button") Annuler
+  .container.p150
+    #loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
+      .panel.panel-info
+        .panel-heading
+          .panel-title Connexion
+          div(style='float:right; font-size: 80%; position: relative; top:-10px')
+            a(href='#') Mot de passe oublié ?
+        .panel-body(style='padding-top:30px')
+          #login-alert.alert.alert-danger.col-sm-12(style='display:none')
+          form#loginform.form-horizontal(role='form', action="/login",method="post")
+            .input-group(style='margin-bottom: 25px')
+              span.input-group-addon
+                i.glyphicon.glyphicon-user
+              input#login-username.form-control(type='text', name="username", placeholder='Utilisateur')
+            .input-group(style='margin-bottom: 25px')
+              span.input-group-addon
+                i.glyphicon.glyphicon-lock
+              input#login-password.form-control(type='password', name="password", placeholder='Mot de passe')
+            .form-group(style='margin-top:10px')
+              // Button
+            .col-sm-12.controls.text-center
+              input#btn-login.btn.btn-success(type="submit")

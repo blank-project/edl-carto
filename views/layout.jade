@@ -3,8 +3,10 @@ html
   head
     title= title
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
     link(href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', rel='stylesheet', media='screen')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style_'+title+'.css')
     link(href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans" rel="stylesheet")
     link(rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css")
     script(src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js")
@@ -14,6 +16,32 @@ html
       br
       h4.error-msg= error
       br
+    nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(data-toggle='collapse', data-target='#maNavbar')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          div
+            a.navbar-brand(href='http://www.paris.fr/', target='_blank') Mairie de Paris
+            img.navbar-brand.lien(alt='nopic', src='images/img/6.png')
+            a#m20.navbar-brand(href='http://www.mairie20.paris.fr/mairie20/', target='_blank') Mairie du 20ème
+        #maNavbar.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/#presentation') Présentation
+            li
+              a(href='/listestructures.pdf', target='_blank')
+                span.glyphicon.glyphicon-print(type='button')
+                | Imprimer
+            li
+              a(href='/map') Liste des structures
+            // <li><a href="#associations">Associations</a></li>
+            li
+              a(href='/login')
+                span.glyphicon.glyphicon-user
+                |  Connexion
     block content
 
   script(src='http://code.jquery.com/jquery.js')

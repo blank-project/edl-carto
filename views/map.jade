@@ -1,9 +1,41 @@
 extends layout
 
 block content
-
   .container
-    #map
+    .row
+      button#buttonHideList(type='button', name='button', value='') Zone Géographique du 20e
+      #listHide.hide
+        label
+          input#btn1(type='checkbox', name='checkbox', value='lol')
+          |             Belleville-Amandiers-Pelleport
+        label
+          input#btn2(type='checkbox', name='checkbox', value='lol')
+          |             les Portes du 20e
+        label
+          input#btn3(type='checkbox', name='checkbox', value='lol')
+          |             A l'echelle de l'arrondissement
+  
+  .container(style="margin-top:150px;")
+    .row
+      .col-md-8
+        #map  
+      .col-md-4
+        h2 Liste des Structures
+        div.liste(ng-app='myApp')
+          div(ng-controller='MainCtrl')
+            input(type='text', ng-model='query', placeholder='Recherche associations')
+            each item in accounts
+              ul
+                h3= item.structureName
+                li= item.structureMail
+                li= item.structurePhone
+                li= item.geocoding[0].formattedAddress
+                li= item.metro
+                li= item.website
+                li= item.type
+                li= item.public
+                li= item.time
+                li=(item.username==='admin' ? '' : (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"))
 
   script(type='text/javascript').
     var data = !{JSON.stringify(locals)}
@@ -14,7 +46,7 @@ block content
     }).addTo(map);
          
      // markers
-     for (var i = 0; i < data.accounts.length-1; i++) {
+     for (var i = 0; i < data.accounts.length; i++) {
        if(data.accounts[i].geocoding[0]) {
          L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).bindPopup(
            "<h1>"+ data.accounts[i].structureName +"</h1><p>"+data.accounts[i].geocoding[0].formattedAddress+"</p><p>"+data.accounts[i].website+"</p><p>"+data.accounts[i].metro+"</p>").addTo(map);

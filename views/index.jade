@@ -1,14 +1,65 @@
 extends layout
 
 block content
-  if (!user)
-    a(href="/login") Login
-  if (user)
-    if (user.username === 'admin')
-      p Connecté en tant qu'
-        b administrateur
-      a(href="/logout") Logout
-    else
-      p Connecté en tant que 
-        b #{user.username}
-      a(href="/logout") Logout
+  #carousel-example-generic.carousel.slide(data-ride='carousel')
+    // Indicators
+    ol.left.carousel-indicators
+      li.active(data-target='#carousel-example-generic', data-slide-to='0')
+      li(data-target='#carousel-example-generic', data-slide-to='1')
+      li(data-target='#carousel-example-generic', data-slide-to='2')
+      li(data-target='#carousel-example-generic', data-slide-to='3')
+    .container
+      .row
+        .hero.shadow
+          h1 Guide des écrivains publics et aide aux démarches administratives.
+          h3 Dans les quartiers politique de la ville du 20ème arrondissement.
+          h4 Belleville/Amandiers/Pelleport et les portes du 20ème.
+    // Wrapper for slides
+    .carousel-inner
+      .item.active
+        img(src='images/img/fond5.jpg', alt='...')
+      .item
+        img(src='images/img/fond6.jpg', alt='...')
+      .item
+        img(src='images/img/fond7.jpg', alt='...')
+      .item
+        img(src='images/img/fond8.jpg', alt='...')
+    // Controls
+    a.left.carousel-control(href='#carousel-example-generic', data-slide='prev')
+      span.glyphicon.glyphicon-chevron-left
+    a.right.carousel-control(href='#carousel-example-generic', data-slide='next')
+      span.glyphicon.glyphicon-chevron-right
+  // partie texte
+  #presentation.container-fluid.main.p20
+    .container.bandeau.text-center.white
+      h1.pad5 Présentation
+      p.bold
+        | Le rôle d'un écrivain public consiste à assurer la rédaction, la réécriture ou la correction de documents administratifs, personnels ou professionnels.
+      p Les demandes qu’ils peuvent traiter :
+      p
+        ul
+          li
+            | Constituer des dossiers en aidant à rédiger des courriers administratifs/ à remplir et comprendre des formulaires/ courriers.
+          li Apporter une aide pour toutes les démarches administratives.
+          li Faire du tri dans papiers administratifs.
+          li
+            | Informer, conseiller et diriger le public dans ses démarches juridiques vers les lieux plus spécialisés dans l’accès au droit (PAD, PIMMS, MJD…).
+      p Les demandes qu’ils ne peuvent pas traiter :
+      p
+        ul
+          li Tout ce qui concerne le juridique (à part les recours gracieux).
+          li Les dossiers de surendettement (rediriger le public vers l’association CRESUS).
+          li Dossier de naturalisation.
+          li Les formulaires liés aux demandes de titre de séjour (rediriger vers CIMADE).
+          li
+            | Toutes les demandes nécessitant des compétences spécifiques ou l’intervention de spécialistes.
+            | Dans tous les cas, on peut orienter vers d’autres structures : MJD, PAD, associations du quartier.
+            | Cette réorientation fait partie du métier d’écrivain public, savoir informer et rediriger le public vers les partenaires locaux et compétents.
+            | Savoir répondre aux demandes.
+      p
+        | Les permanences d’e-administration ont vocation à accompagner les usagers-ères dans leurs démarches administratives dématérialisées.(Services publics en lignes :
+      p
+        ul
+          li CAF
+          li Pôle emploi
+          li Facil' Familles...)
