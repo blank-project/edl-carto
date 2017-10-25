@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .container
+  .container(style="margin-top: 100px;")
     h1 Modifier les données
     br
     form(role='form', action="/panel",method="post", style='max-width: 300px;')
@@ -17,7 +17,7 @@ block content
       .form-group
         input.form-control(type='text', name="structurePhone", placeholder='Téléphone', value=accounts.structurePhone)
       .form-group
-        input.form-control(type='text', name="adressNb", placeholder='N°', value=accounts.adressNb)
+        input.form-control(type='number', name="adressNb", placeholder='N°', value=accounts.adressNb)
       .form-group
         select.form-control(name="adressType")
           option(value="Allée", selected=(accounts.adressType === "Allée" ? true : false)) Allée
