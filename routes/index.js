@@ -10,7 +10,7 @@ var options = {
   // Optional depending on the providers
   httpAdapter: 'https',
   apiKey: 'AIzaSyBP3ilrS1K-woHV9s1_FnnsOqRxW6uDCfo', // Default
-  formatter: null         // 'gpx', 'string', ...
+  formatter: null         // 'gpx', 'string', ...test
 };
 
 var geocoder = NodeGeocoder(options);
@@ -72,6 +72,7 @@ router.post('/panel', function(req, res) {
         structureName: req.body.structureName,
         structureMail: req.body.structureMail,
         structurePhone: req.body.structurePhone,
+        zone: req.body.zone,
         adressNb: req.body.adressNb,
         adressType: req.body.adressType,
         adressName: req.body.adressName,
@@ -116,15 +117,56 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/map', function(req, res) {
+
+
+  if(req.query.q || req.query.zone) {
+
+    var user_input = new RegExp(".*" + req.query.q + ".*", "i");
+      var queryArray = [];
+      for (var property in Account.schema.paths) {
+        if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
+          var obj = {};
+          obj[property] =  user_input ;
+          queryArray.push(obj);
+        }
+      }
+
+  if(req.query.zone="all") {
+    var query = {
+      $or: queryArray
+    };
+  } else {
+  var query = {
+    $or: queryArray,
+    $and: [{'zone': req.query.zone}]
+  };
+  }
+  Account.find(query, function(error, usersFound){
+    if (!error) {
+      res.render('map', {title: 'Carte', user : req.user, accounts : usersFound, locals: {
+                data: usersFound
+                }})
+
+    } else {
+      // error handling
+    }
+
+
+    //usersFound contains all the users that has "le" in at least one field
+  });
+
+} else {
   Account.find({}).exec(function(err, result) {
     if (!err) {
       res.render('map', {title: 'Carte', user : req.user, accounts : result, locals: {
                 data: result
                 }})
+
     } else {
       // error handling
     }
   })
+}
 });
 
 

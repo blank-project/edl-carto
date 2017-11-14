@@ -2,20 +2,9 @@ extends layout
 
 block content
   .container
-    .row
-      button#buttonHideList(type='button', name='button', value='') Zone Géographique du 20e
-      #listHide.hide
-        label
-          input#btn1(type='checkbox', name='checkbox', value='lol')
-          |             Belleville-Amandiers-Pelleport
-        label
-          input#btn2(type='checkbox', name='checkbox', value='lol')
-          |             les Portes du 20e
-        label
-          input#btn3(type='checkbox', name='checkbox', value='lol')
-          |             A l'echelle de l'arrondissement
   
-  .container(style="margin-top:150px;")
+    .row(style="margin-top: 150px;")
+      form
     .row
       .col-md-8
         #map  
@@ -23,7 +12,18 @@ block content
         h2 Liste des Structures
         div.liste(ng-app='myApp')
           div(ng-controller='MainCtrl')
-            input(type='text', ng-model='query', placeholder='Recherche associations')
+            form(action="/map", method="get")
+              label(style="margin-right: 20px; color: #0c518a;")
+                input#btn1(type='radio', name='zone', value='belleville')
+                |             Belleville-Amandiers-Pelleport
+              label(style="margin-right: 20px; color: #0c518a;")
+                input#btn2(type='radio', name='zone', value='portes')
+                |             les Portes du 20e
+              label(style="color: #0c518a;")
+                input#btn3(type='radio', name='zone', value='all')
+                |             A l'echelle de l'arrondissement
+              input(type='text', name="q", ng-model='query', placeholder='Recherche associations')
+              input(type="submit", value="Ok!")
             each item in accounts
               ul
                 h3= item.structureName

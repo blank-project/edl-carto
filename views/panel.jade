@@ -67,6 +67,10 @@ block content
       .form-group
         input.form-control(type='text', name="metro", placeholder='Station de métro', value=accounts.metro)
       .form-group
+        select.form-control(name="zone")
+          option(value="Belleville", selected=(accounts.zone === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
+          option(value="Porte", selected=(accounts.zone === "Porte" ? true : false))  Les Portes du 20e
+      .form-group
         input.form-control(type='text', name="website", placeholder='Site internet', value=accounts.website)
       select.form-control(name="type" multiple)
           option(value="Écrivains publics", selected=(accounts.type == "Écrivains publics" ? true : false)) Écrivains publics
