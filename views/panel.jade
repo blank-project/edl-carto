@@ -1,93 +1,207 @@
-extends layout
+extends layout-admin
 
 block content
   .container(style="margin-top: 100px;")
     h1 Modifier les données
-    br
-    form(role='form', action="/panel",method="post", style='max-width: 300px;')
-      input(type='hidden', name='id', value=accounts._id)
-      .form-group
-          input.form-control(type='text', name="username", placeholder='Enter Username', value=accounts.username)
-      .form-group
-          input.form-control(type='email', name="email", placeholder='Enter Email', value=accounts.email)
-      .form-group
-        input.form-control(type='text', name="structureName", placeholder='Nom de la structure', value=accounts.structureName)
-      .form-group
-        input.form-control(type='email', name="structureMail", placeholder='Email de contact', value=accounts.structureMail)
-      .form-group
-        input.form-control(type='text', name="structurePhone", placeholder='Téléphone', value=accounts.structurePhone)
-      .form-group
-        input.form-control(type='number', name="adressNb", placeholder='N°', value=accounts.adressNb)
-      .form-group
-        select.form-control(name="adressType")
-          option(value="Allée", selected=(accounts.adressType === "Allée" ? true : false)) Allée
-          option(value="Avenue", selected=(accounts.adressType === "Avenue" ? true : false)) Avenue
-          option(value="Boulevard", selected=(accounts.adressType === "Boulevard" ? true : false)) Boulevard
-          option(value="Carrefour", selected=(accounts.adressType === "Carrefour" ? true : false)) Carrefour
-          option(value="Chemin", selected=(accounts.adressType === "Chemin" ? true : false)) Chemin
-          option(value="Chaussée", selected=(accounts.adressType === "Chausée" ? true : false)) Chaussée
-          option(value="Cité", selected=(accounts.adressType === "Cité" ? true : false)) Cité
-          option(value="Corniche", selected=(accounts.adressType === "Corniche" ? true : false)) Corniche
-          option(value="Cours", selected=(accounts.adressType === "Cours" ? true : false)) Cours
-          option(value="Domaine", selected=(accounts.adressType === "Domaine" ? true : false)) Domaine
-          option(value="Descente", selected=(accounts.adressType === "Descente" ? true : false)) Descente
-          option(value="Ecart", selected=(accounts.adressType === "Ecart" ? true : false)) Ecart
-          option(value="Esplanade", selected=(accounts.adressType === "Esplanade" ? true : false)) Esplanade
-          option(value="Faubourg", selected=(accounts.adressType === "Faubourg" ? true : false)) Faubourg
-          option(value="Hameau", selected=(accounts.adressType === "Hameau" ? true : false)) Hameau
-          option(value="Halle", selected=(accounts.adressType === "Halle" ? true : false)) Halle
-          option(value="Impasse", selected=(accounts.adressType === "Impasse" ? true : false)) Impasse
-          option(value="Lieu-dit", selected=(accounts.adressType === "Lieu-dit" ? true : false)) Lieu-dit
-          option(value="Lotissement", selected=(accounts.adressType === "Lotissement" ? true : false)) Lotissement
-          option(value="Marché", selected=(accounts.adressType === "Marché" ? true : false)) Marché
-          option(value="Montée", selected=(accounts.adressType === "Montée" ? true : false)) Montée
-          option(value="Passage", selected=(accounts.adressType === "Passage" ? true : false)) Passage
-          option(value="Place", selected=(accounts.adressType === "Place" ? true : false)) Place
-          option(value="Plaine", selected=(accounts.adressType === "Plaine" ? true : false)) Plaine
-          option(value="Plateau", selected=(accounts.adressType === "Plateau" ? true : false)) Plateau
-          option(value="Parvis", selected=(accounts.adressType === "Parvis" ? true : false)) Parvis
-          option(value="Quartier", selected=(accounts.adressType === "Quartier" ? true : false)) Quartier
-          option(value="Quai", selected=(accounts.adressType === "Quai" ? true : false)) Quai
-          option(value="Résidence", selected=(accounts.adressType === "Résidence" ? true : false)) Résidence
-          option(value="Ruelle", selected=(accounts.adressType === "Ruelle" ? true : false)) Ruelle
-          option(value="Rocade", selected=(accounts.adressType === "Rocade" ? true : false)) Rocade
-          option(value="Rond-point", selected=(accounts.adressType === "Rond-point" ? true : false)) Rond-point
-          option(value="Route", selected=(accounts.adressType === "Route" ? true : false)) Route
-          option(value="Rue", selected=(accounts.adressType === "Rue" ? true : false)) Rue
-          option(value="Sente - Sentier", selected=(accounts.adressType === "Sente - Sentier" ? true : false)) Sente - Sentier
-          option(value="Square", selected=(accounts.adressType === "Square" ? true : false)) Square
-          option(value="Terre-plein", selected=(accounts.adressType === "Terre-plein" ? true : false)) Terre-plein
-          option(value="Traverse", selected=(accounts.adressType === "Traverse" ? true : false)) Traverse
-          option(value="Villa", selected=(accounts.adressType === "Villa" ? true : false)) Villa
-          option(value="Village", selected=(accounts.adressType === "Village" ? true : false)) Village
-      .form-group
-        input.form-control(type='text', name="adressName", placeholder='Nom de la voie', value=accounts.adressName)
-      .form-group
-        input.form-control(type='text', name="adressZip", placeholder='Code Postal', value=accounts.adressZip)
-      .form-group
-        input.form-control(type='text', name="metro", placeholder='Station de métro', value=accounts.metro)
-      .form-group
-        select.form-control(name="zone")
-          option(value="Belleville", selected=(accounts.zone === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
-          option(value="Porte", selected=(accounts.zone === "Porte" ? true : false))  Les Portes du 20e
-      .form-group
-        input.form-control(type='text', name="website", placeholder='Site internet', value=accounts.website)
-      select.form-control(name="type" multiple)
-          option(value="Écrivains publics", selected=(accounts.type == "Écrivains publics" ? true : false)) Écrivains publics
-          option(value="E-administration", selected=(accounts.type == "E-administration" ? true : false)) E-administration
-          option(value="Pôle numérique", selected=(accounts.type == "Pôle numérique" ? true : false)) Pôle numérique
-          option(value="Interprète", selected=(accounts.type == "Interprète" ? true : false)) Interprète
-          option(value="Soutien juridique", selected=(accounts.type == "Soutien juridique" ? true : false)) Soutien juridique
-          option(value="Assistance sociale", selected=(accounts.type == "Assistance sociale" ? true : false)) Assistance sociale
-          option(value="Permanence Accueil et Solidarité", selected=(accounts.type == "Permanence Accueil et Solidarité" ? true : false)) Permanence Accueil et Solidarité
-        .form-group
-          input.form-control(type='text', name="public", placeholder='Publics', value=accounts.public)
-        .form-group
-          input.form-control(type='text', name="time", placeholder='Horaires', value=accounts.time)
-        .form-group
-          input.form-control(type='radio', name="meeting", value='1', checked=(accounts.meeting === true ? true : false))
-          input.form-control(type='radio', name="meeting", value='0', checked=(accounts.meeting === false ? true : false))
+    form(role='form', action="/panel",method="post")
+      .row
+        .col-xs-3.col-xs-offset-1
+          input(type='hidden', name='id', value=accounts._id)
+          .form-group
+            label(for="username") Nom d'utilisateur :
+            input.form-control(type='text', name="username", placeholder='Enter Username', value=accounts.username, readonly="readonly")
+          .form-group
+            label(for="email") Email privé :
+            input.form-control(type='email', name="email", id="email",placeholder='Enter Email', value=accounts.email)
+          .form-group
+            label(for="structureName") Nom de la structure :
+            input.form-control(type='text', name="structureName", id="structureName" placeholder='Nom de la structure', value=accounts.structureName)
+          .form-group
+            label(for="structureMail") Email public :
+            input.form-control(type='email', name="structureMail", id="structureMail", placeholder='Email de contact', value=accounts.structureMail)
+          .form-group
+            label(for="structurePhone") Numéro de téléphone de la structure :
+            input.form-control(type='text', name="structurePhone", placeholder='Téléphone', value=accounts.structurePhone)
+          .form-group
+            label(for="website") Site internet :
+            input.form-control(type='text', id="website", name="website", placeholder='Site internet', value=accounts.website)
+        .col-xs-3.col-xs-offset-1    
+          .form-group
+            label(for="adressNb") Numéro de l'adresse :
+            input.form-control(type='number', name="adressNb", id="adressNb", placeholder='N°', value=accounts.adressNb)
+          .form-group
+            label(for="adressType") Type de voie :
+            select.form-control(name="adressType", id="adressType")
+              option(value="Allée", selected=(accounts.adressType === "Allée" ? true : false)) Allée
+              option(value="Avenue", selected=(accounts.adressType === "Avenue" ? true : false)) Avenue
+              option(value="Boulevard", selected=(accounts.adressType === "Boulevard" ? true : false)) Boulevard
+              option(value="Carrefour", selected=(accounts.adressType === "Carrefour" ? true : false)) Carrefour
+              option(value="Chemin", selected=(accounts.adressType === "Chemin" ? true : false)) Chemin
+              option(value="Chaussée", selected=(accounts.adressType === "Chausée" ? true : false)) Chaussée
+              option(value="Cité", selected=(accounts.adressType === "Cité" ? true : false)) Cité
+              option(value="Corniche", selected=(accounts.adressType === "Corniche" ? true : false)) Corniche
+              option(value="Cours", selected=(accounts.adressType === "Cours" ? true : false)) Cours
+              option(value="Domaine", selected=(accounts.adressType === "Domaine" ? true : false)) Domaine
+              option(value="Descente", selected=(accounts.adressType === "Descente" ? true : false)) Descente
+              option(value="Ecart", selected=(accounts.adressType === "Ecart" ? true : false)) Ecart
+              option(value="Esplanade", selected=(accounts.adressType === "Esplanade" ? true : false)) Esplanade
+              option(value="Faubourg", selected=(accounts.adressType === "Faubourg" ? true : false)) Faubourg
+              option(value="Hameau", selected=(accounts.adressType === "Hameau" ? true : false)) Hameau
+              option(value="Halle", selected=(accounts.adressType === "Halle" ? true : false)) Halle
+              option(value="Impasse", selected=(accounts.adressType === "Impasse" ? true : false)) Impasse
+              option(value="Lieu-dit", selected=(accounts.adressType === "Lieu-dit" ? true : false)) Lieu-dit
+              option(value="Lotissement", selected=(accounts.adressType === "Lotissement" ? true : false)) Lotissement
+              option(value="Marché", selected=(accounts.adressType === "Marché" ? true : false)) Marché
+              option(value="Montée", selected=(accounts.adressType === "Montée" ? true : false)) Montée
+              option(value="Passage", selected=(accounts.adressType === "Passage" ? true : false)) Passage
+              option(value="Place", selected=(accounts.adressType === "Place" ? true : false)) Place
+              option(value="Plaine", selected=(accounts.adressType === "Plaine" ? true : false)) Plaine
+              option(value="Plateau", selected=(accounts.adressType === "Plateau" ? true : false)) Plateau
+              option(value="Parvis", selected=(accounts.adressType === "Parvis" ? true : false)) Parvis
+              option(value="Quartier", selected=(accounts.adressType === "Quartier" ? true : false)) Quartier
+              option(value="Quai", selected=(accounts.adressType === "Quai" ? true : false)) Quai
+              option(value="Résidence", selected=(accounts.adressType === "Résidence" ? true : false)) Résidence
+              option(value="Ruelle", selected=(accounts.adressType === "Ruelle" ? true : false)) Ruelle
+              option(value="Rocade", selected=(accounts.adressType === "Rocade" ? true : false)) Rocade
+              option(value="Rond-point", selected=(accounts.adressType === "Rond-point" ? true : false)) Rond-point
+              option(value="Route", selected=(accounts.adressType === "Route" ? true : false)) Route
+              option(value="Rue", selected=(accounts.adressType === "Rue" ? true : false)) Rue
+              option(value="Sente - Sentier", selected=(accounts.adressType === "Sente - Sentier" ? true : false)) Sente - Sentier
+              option(value="Square", selected=(accounts.adressType === "Square" ? true : false)) Square
+              option(value="Terre-plein", selected=(accounts.adressType === "Terre-plein" ? true : false)) Terre-plein
+              option(value="Traverse", selected=(accounts.adressType === "Traverse" ? true : false)) Traverse
+              option(value="Villa", selected=(accounts.adressType === "Villa" ? true : false)) Villa
+              option(value="Village", selected=(accounts.adressType === "Village" ? true : false)) Village
+          .form-group
+            label(for="adressName") Nom de la voie :
+            input.form-control(type='text', name="adressName", id="adressName" , placeholder='Nom de la voie', value=accounts.adressName)
+          .form-group
+            label(for="adressZip") Code postal :
+            input.form-control(type='text', name="adressZip", id="adressZip", placeholder='Code Postal', value=accounts.adressZip)
+        .col-xs-3.col-xs-offset-1    
+          .form-group
+            label(for="metro") Station de métro/tram/bus :
+            input.form-control(type='text', name="metro", id="metro", placeholder='Station de métro', value=accounts.metro)
+          .form-group
+            label(for="zone") Zone :
+            select.form-control(name="zone", id="zone")
+              option(value="Belleville", selected=(accounts.zone === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
+              option(value="Portes", selected=(accounts.zone === "Portes" ? true : false))  Les Portes du 20e
+          .form-group
+            label(for="type") Type de permanences :
+            select.form-control(id="type", name="type" multiple)
+              option(value="ecrivains", selected=(accounts.type == "ecrivains" ? true : false)) Écrivains publics
+              option(value="eadministration", selected=(accounts.type == "eadministration" ? true : false)) E-administration
+              option(value="interprete", selected=(accounts.type == "interprete" ? true : false)) Interprète
+            .form-group
+              label(for="public") Publics :
+              input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
+            .form-group
+              label(for="time") Horaires :
+              input.form-control(id="time",type='text', name="time", placeholder='Horaires', value=accounts.time)
+            .form-group
+              label(for="meeting") Sur rendez-vous :
+              input.form-control(type='checkbox', name="meeting", id="meeting", value='1', checked=(accounts.meeting === true ? true : false))
+      .row
+        .col-xs-4
+          .form-group
+            label(for="perm2") Ajout d'une permanence hors les murs : 
+              input(type='checkbox', name="perm2", id="permCheck2")
+      .row#perm2
+        .col-xs-3.col-xs-offset-5    
+          .form-group
+            label(for="adressNb2") Numéro de l'adresse :
+            input.form-control(type='number', name="adressNb2", id="adressNb2", placeholder='N°', value=accounts.adressNb2)
+          .form-group
+            label(for="adressType2") Type de voie :
+            select.form-control(name="adressType2", id="adressType2")
+              option(value="Allée", selected=(accounts.adressType2 === "Allée" ? true : false)) Allée
+              option(value="Avenue", selected=(accounts.adressType2 === "Avenue" ? true : false)) Avenue
+              option(value="Boulevard", selected=(accounts.adressType2 === "Boulevard" ? true : false)) Boulevard
+              option(value="Carrefour", selected=(accounts.adressType2 === "Carrefour" ? true : false)) Carrefour
+              option(value="Chemin", selected=(accounts.adressType2 === "Chemin" ? true : false)) Chemin
+              option(value="Chaussée", selected=(accounts.adressType2 === "Chausée" ? true : false)) Chaussée
+              option(value="Cité", selected=(accounts.adressType2 === "Cité" ? true : false)) Cité
+              option(value="Corniche", selected=(accounts.adressType2 === "Corniche" ? true : false)) Corniche
+              option(value="Cours", selected=(accounts.adressType2 === "Cours" ? true : false)) Cours
+              option(value="Domaine", selected=(accounts.adressType2 === "Domaine" ? true : false)) Domaine
+              option(value="Descente", selected=(accounts.adressType2 === "Descente" ? true : false)) Descente
+              option(value="Ecart", selected=(accounts.adressType2 === "Ecart" ? true : false)) Ecart
+              option(value="Esplanade", selected=(accounts.adressType2 === "Esplanade" ? true : false)) Esplanade
+              option(value="Faubourg", selected=(accounts.adressType2 === "Faubourg" ? true : false)) Faubourg
+              option(value="Hameau", selected=(accounts.adressType2 === "Hameau" ? true : false)) Hameau
+              option(value="Halle", selected=(accounts.adressType2 === "Halle" ? true : false)) Halle
+              option(value="Impasse", selected=(accounts.adressType2 === "Impasse" ? true : false)) Impasse
+              option(value="Lieu-dit", selected=(accounts.adressType2 === "Lieu-dit" ? true : false)) Lieu-dit
+              option(value="Lotissement", selected=(accounts.adressType2 === "Lotissement" ? true : false)) Lotissement
+              option(value="Marché", selected=(accounts.adressType2 === "Marché" ? true : false)) Marché
+              option(value="Montée", selected=(accounts.adressType2 === "Montée" ? true : false)) Montée
+              option(value="Passage", selected=(accounts.adressType2 === "Passage" ? true : false)) Passage
+              option(value="Place", selected=(accounts.adressType2 === "Place" ? true : false)) Place
+              option(value="Plaine", selected=(accounts.adressType2 === "Plaine" ? true : false)) Plaine
+              option(value="Plateau", selected=(accounts.adressType2 === "Plateau" ? true : false)) Plateau
+              option(value="Parvis", selected=(accounts.adressType2 === "Parvis" ? true : false)) Parvis
+              option(value="Quartier", selected=(accounts.adressType2 === "Quartier" ? true : false)) Quartier
+              option(value="Quai", selected=(accounts.adressType2 === "Quai" ? true : false)) Quai
+              option(value="Résidence", selected=(accounts.adressType2 === "Résidence" ? true : false)) Résidence
+              option(value="Ruelle", selected=(accounts.adressType2 === "Ruelle" ? true : false)) Ruelle
+              option(value="Rocade", selected=(accounts.adressType2 === "Rocade" ? true : false)) Rocade
+              option(value="Rond-point", selected=(accounts.adressType2 === "Rond-point" ? true : false)) Rond-point
+              option(value="Route", selected=(accounts.adressType2 === "Route" ? true : false)) Route
+              option(value="Rue", selected=(accounts.adressType2 === "Rue" ? true : false)) Rue
+              option(value="Sente - Sentier", selected=(accounts.adressType2 === "Sente - Sentier" ? true : false)) Sente - Sentier
+              option(value="Square", selected=(accounts.adressType2 === "Square" ? true : false)) Square
+              option(value="Terre-plein", selected=(accounts.adressType2 === "Terre-plein" ? true : false)) Terre-plein
+              option(value="Traverse", selected=(accounts.adressType2 === "Traverse" ? true : false)) Traverse
+              option(value="Villa", selected=(accounts.adressType2 === "Villa" ? true : false)) Villa
+              option(value="Village", selected=(accounts.adressType2 === "Village" ? true : false)) Village
+          .form-group
+            label(for="adressName2") Nom de la voie :
+            input.form-control(type='text', name="adressName2", id="adressName2" , placeholder='Nom de la voie', value=accounts.adressName2)
+          .form-group
+            label(for="adressZip2") Code postal :
+            input.form-control(type='text', name="adressZip2", id="adressZip2", placeholder='Code Postal', value=accounts.adressZip2)
+        .col-xs-3.col-xs-offset-1    
+          .form-group
+            label(for="metro2") Station de métro/tram/bus :
+            input.form-control(type='text', name="metro2", id="metro2", placeholder='Station de métro', value=accounts.metro2)
+          .form-group
+            label(for="zone2") Zone :
+            select.form-control(name="zone2", id="zone2")
+              option(value="Belleville", selected=(accounts.zone2 === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
+              option(value="Portes", selected=(accounts.zone2 === "Portes" ? true : false))  Les Portes du 20e
+          .form-group
+            label(for="type2") Type de permanences :
+            select.form-control(id="type2", name="type2" multiple)
+              option(value="Écrivains publics", selected=(accounts.type2 == "Écrivains publics" ? true : false)) Écrivains publics
+              option(value="E-administration", selected=(accounts.type2 == "E-administration" ? true : false)) E-administration
+              option(value="Interprète", selected=(accounts.type2 == "Interprète" ? true : false)) Interprète
+            .form-group
+              label(for="public2") Publics :
+              input.form-control(id="public2", type='text', name="public2", placeholder='Publics', value=accounts.public2)
+            .form-group
+              label(for="time2") Horaires :
+              input.form-control(id="time2",type='text', name="time2", placeholder='Horaires', value=accounts.time2)
+            .form-group
+              label(for="meeting2") Sur rendez-vous :
+              input.form-control(type='checkbox', name="meeting2", id="meeting2", value='1', checked=(accounts.meeting2 === true ? true : false))
+
+      .row
+        .col-xs-2.col-xs-offset-5
+          button.btn.btn-primary(type='submit') Envoyer
           
-      button.btn.btn-default(type='submit') Submit
-      a(href='/')
-        button.btn.btn-primary(type="button") Cancel
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          

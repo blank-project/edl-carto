@@ -1,0 +1,6 @@
+export MONGO_URL='mongodb://127.0.0.1:27017/wekan'
+export ROOT_URL='https://todo.bellevillecitoyenne.fr'
+export MAIL_URL='smtp://contact@bellevillecitoyenne.fr:politicus@ssl0.ovh.net:465/'
+export PORT=8383
+node main.js
+

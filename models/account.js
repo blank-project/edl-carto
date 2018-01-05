@@ -9,21 +9,21 @@ var Account = new Schema({
     admin: Boolean,
     structureName: String,
     structureMail: String,
-    structurePhone: Number,
+    structurePhone: String,
     adressNb: Number,
     adressType: String,
     adressName: String,
     adressZip: Number,
     metro: String,
     website: String,
-    type: Array,
+    type: String,
     public: String,
     time: String,
     zone: String,
     meeting: Boolean,
     geocoding: Array
-
 });
+
 
 Account.plugin(passportLocalMongoose);
 

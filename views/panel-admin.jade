@@ -1,4 +1,4 @@
-extends layout
+extends layout-admin
 
 block content
   .container(style="margin-top: 100px;")
@@ -12,7 +12,6 @@ block content
       .form-group
         input.form-control(type='password', name="password", placeholder='Password')
       button.btn.btn-default(type='submit') Submit
-       &nbsp;
       a(href='/')
         button.btn.btn-primary(type="button") Cancel
         
@@ -29,5 +28,8 @@ block content
             td= item.username
             td= item.email
             td
+              a(href='/panel-admin-update?q='+item.username) 
+                span.glyphicon.glyphicon-pencil
             td
-              a(href='/remove?id='+item._id) X
+              a(href='/remove?id='+item._id)
+                span.glyphicon.glyphicon-remove

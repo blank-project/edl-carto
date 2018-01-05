@@ -10,7 +10,6 @@ html
     link(href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans" rel="stylesheet")
     link(rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css")
     script(src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js")
-    script(src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js')
 
   body
     if (error && error.length > 0)
@@ -31,17 +30,22 @@ html
         #maNavbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li
-              a(href='/#presentation') Présentation
+              a(href='/') Accueil
             li
-              a(id='print', href='/pdf', target='_blank')
-                span.glyphicon.glyphicon-print(type='button')
-                | Imprimer
+              a(href='/panel') Panel
             li
-              a(href='/map') Liste des structures
+              a(href='/files') Gestionnaire de fichiers
             li
-              a(href='/login')
+              a
                 span.glyphicon.glyphicon-user
-                |  Connexion
+                |  Connecté en tant que : 
+                b
+                 = user.username
+                
+            li
+              a(href='/logout')
+                span.glyphicon.glyphicon-log-out
+                |  Se déconnecter 
 
     block content
 
