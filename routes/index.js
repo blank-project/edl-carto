@@ -235,9 +235,9 @@ router.get('/map', function(req, res) {
   } else {
   //si zone unique
   var query = {
-    //$or: queryArray,
-    //$and: [],
-    $and: [{'type': req.query.service}, {'zone': req.query.zone}, queryArray]
+    $or: queryArray,
+    $and: [{'zone': req.query.zone}],
+    $and: [{'type': req.query.service}]
   };
   }
   Account.find(query, function(error, usersFound){
