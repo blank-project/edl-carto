@@ -102,7 +102,7 @@ router.post('/panel',loggedIn, function(req, res) {
 
 
 
-  if(req.body.perm2) {
+  if(req.body.perm2 || req.body.adressNb2) {
 
     var fullAdress = req.body.adressNb2+' '+req.body.adressType2+' '+req.body.adressName2+' '+req.body.adressZip2+' Paris';
 
@@ -224,10 +224,10 @@ router.get('/map', function(req, res) {
     //si toutes zones
     var query = {
       $or: queryArray,
-      $and: [{'type': req.query.service}]
+      $and: [{'type': req.query.service} ]
     };
   }else if (req.query.service=="all") {
-    //si toutes zones
+    //si tout services
     var query = {
       $or: queryArray,
       $and: [{'zone': req.query.zone}]
@@ -235,13 +235,14 @@ router.get('/map', function(req, res) {
   } else {
   //si zone unique
   var query = {
-    $or: queryArray,
-    $and: [{'zone': req.query.zone}],
-    $and: [{'type': req.query.service}]
+    //$or: queryArray,
+    //$and: [],
+    $and: [{'type': req.query.service}, {'zone': req.query.zone}, queryArray]
   };
   }
   Account.find(query, function(error, usersFound){
     if (!error) {
+      console.log(usersFound);
       res.render('map', {title: 'Carte', user : req.user, accounts : usersFound, locals: {
                 data: usersFound
                 }})
