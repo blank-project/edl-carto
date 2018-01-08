@@ -346,7 +346,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
       var length = result.length;
       var pageNb = Math.ceil((result.length-3)/4);
 
-      for(var i=0;i<3;i++) {
+      for(var i=0;i<2;i++) {
         if(!result[i].admin) {
         doc.fontSize(14)
            .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
