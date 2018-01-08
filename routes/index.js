@@ -224,7 +224,7 @@ router.get('/map', function(req, res) {
     //si toutes zones
     var query = {
       $or: queryArray,
-      $and: [{'type': req.query.service} ]
+      $and: [{'type': req.query.service}]
     };
   }else if (req.query.service=="all") {
     //si tout services
@@ -413,11 +413,22 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
        doc.fontSize(12)
           .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
-
+        if(result[i].perm2) {
+          doc.fontSize(12)
+            .text(result[i].type2, 306, 290+259*i, {width:130, align: 'center'});
+        }
       doc.fontSize(12)
          .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
       doc.fontSize(12)
-         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
+         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
+
+
+     if(result[i].perm2) {
+       doc.fontSize(12)
+          .text(result[i].time2, 439, 290+259*i, {width:130, align: 'center'});
+       doc.fontSize(12)
+          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 310+259*i, {width:130, align: 'center'});
+     }
          //result.shift();
        }
      }
@@ -462,11 +473,23 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
        doc.fontSize(12)
           .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
-
+        if(result[i].perm2) {
+          doc.fontSize(12)
+            .text(result[i].type2, 306, 290+259*i, {width:130, align: 'center'});
+        }
       doc.fontSize(12)
          .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
       doc.fontSize(12)
-         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
+         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
+
+
+     if(result[i].perm2) {
+       doc.fontSize(12)
+          .text(result[i].time2, 439, 290+259*i, {width:130, align: 'center'});
+       doc.fontSize(12)
+          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 310+259*i, {width:130, align: 'center'});
+     }
+
          //result.shift();
       }
     }

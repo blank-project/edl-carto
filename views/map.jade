@@ -33,6 +33,8 @@ block content
               input(type='text', name="q", ng-model='query', placeholder='Recherche associations')
               br
               br
+              button 
+                a(href="/map") Reset
               input(type="submit", value="Ok!")
             each item in accounts
               if !item.admin
