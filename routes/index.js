@@ -369,9 +369,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
          .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
       doc.fontSize(12)
          .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
-         result.shift();
+         //result.shift();
        } else {
-         result.shift();
+         //result.shift();
        }
      }
   doc.pipe(res);
@@ -425,9 +425,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
          .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
       doc.fontSize(12)
          .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
-         result.shift();
+         //result.shift();
        } else {
-         result.shift();
+         //result.shift();
        }
       }
   doc.pipe(res);
