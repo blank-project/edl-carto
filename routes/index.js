@@ -402,6 +402,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
       var pageNb = Math.ceil((result.length-3)/4);
 
       for(var i=0;i<3;i++) {
+        if(!result[i].admin) {
         doc.fontSize(14)
            .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
         doc.fontSize(12)
@@ -425,7 +426,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
          .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
       result.shift();
       }
-
+      }
   doc.pipe(res);
   doc.end();
 
