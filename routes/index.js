@@ -425,6 +425,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
          .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
          //result.shift();
       }
+    }
   doc.pipe(res);
   doc.end();
 
