@@ -35,19 +35,20 @@ block content
               br
               input(type="submit", value="Ok!")
             each item in accounts
-              h3= item.structureName
-              ul
-                li= item.type
-                li= item.time
-                li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
-                li= item.public
-                li= item.adressNb+' '+item.adressType+' '+item.adressName
-                li= item.structureMail
-                li= item.structurePhone
-                li= item.metro
-                li
-                  a(href='http://'+item.website, target='_blank') 
-                    = item.website
+              if !item.admin
+                h3= item.structureName
+                ul
+                  li= item.type
+                  li= item.time
+                  li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
+                  li= item.public
+                  li= item.adressNb+' '+item.adressType+' '+item.adressName
+                  li= item.structureMail
+                  li= item.structurePhone
+                  li= item.metro
+                  li
+                    a(href='http://'+item.website, target='_blank') 
+                      = item.website
     #images
   script(type='text/javascript').
     function $_GET(param) {
@@ -97,7 +98,7 @@ block content
      // markers
      for (var i = 0; i < data.accounts.length; i++) {
        var meeting = data.accounts[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous";
-       if(data.accounts[i].geocoding[0]) {
+       if(!data.accounts[i].admin) {
          L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).bindPopup(
            "<h3>"+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type+"</li><li>"+data.accounts[i].time+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public+"</li><li>"+data.accounts[i].adressNb+" "+data.accounts[i].adressType+" "+data.accounts[i].adressName+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro+"</li></ul></div>").addTo(map);
        }
