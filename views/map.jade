@@ -115,7 +115,7 @@ block content
            "<h3>"+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type+"</li><li>"+data.accounts[i].time+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public+"</li><li>"+data.accounts[i].adressNb+" "+data.accounts[i].adressType+" "+data.accounts[i].adressName+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro+"</li></ul></div>").addTo(map);
        }
        if(data.accounts[i].perm2) {
-         L.marker([data.accounts[i].geocoding2[0].latitude, data.accounts[i].geocoding[0].longitude]).bindPopup(
+         L.marker([data.accounts[i].geocoding2[0].latitude, data.accounts[i].geocoding2[0].longitude]).bindPopup(
            "<h3> Hors les murs de "+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type2+"</li><li>"+data.accounts[i].time2+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public2+"</li><li>"+data.accounts[i].adressNb2+" "+data.accounts[i].adressType2+" "+data.accounts[i].adressName2+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro2+"</li></ul></div>").addTo(map);
          
        }
