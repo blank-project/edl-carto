@@ -373,6 +373,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
        } else {
          result.shift();
        }
+     }
   doc.pipe(res);
   doc.end();
 
