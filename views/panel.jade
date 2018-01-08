@@ -106,7 +106,7 @@ block content
         .col-xs-4
           .form-group
             label(for="perm2") Ajout d'une permanence hors les murs : 
-              input(type='checkbox', name="perm2", id="permCheck2")
+              input(type='checkbox', name="perm2", id="permCheck2", value="true", checked=(accounts.perm2 === true ? true : false))
       .row#perm2
         .col-xs-3.col-xs-offset-5    
           .form-group

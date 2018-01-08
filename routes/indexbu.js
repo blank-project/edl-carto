@@ -100,53 +100,6 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
 
 router.post('/panel',loggedIn, function(req, res) {
 
-
-
-  if(req.body.perm2) {
-
-    var fullAdress = req.body.adressNb2+' '+req.body.adressType2+' '+req.body.adressName2+' '+req.body.adressZip2+' Paris';
-
-    geocoder.geocode(fullAdress)
-      .then(function(res1) {
-        Account.update({username: req.body.username}, {
-          geocoding2: res1,
-          perm2: true,
-          zone2: req.body.zone2,
-          adressNb2: req.body.adressNb2,
-          adressType2: req.body.adressType2,
-          adressName2: req.body.adressName2,
-          adressZip2: req.body.adressZip2,
-          metro2: req.body.metro2,
-          website2: req.body.website2,
-          type2: req.body.type2,
-          public2: req.body.public2,
-          time2: req.body.time2,
-          meeting2: req.body.meeting2
-        }).exec(function(err) {
-          if (!err) {
-            var user = req.user.username
-            Account.findOne({'username': user}).exec(function(err, result) {
-              if (!err) {
-                //res.redirect('panel');
-              } else {
-                console.log(err);
-              }
-            });
-          } else {
-            console.log(err);
-          }
-        })
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-
-  }
-
-
-
-
-
   var fullAdress = req.body.adressNb+' '+req.body.adressType+' '+req.body.adressName+' '+req.body.adressZip+' Paris';
 
   geocoder.geocode(fullAdress)
@@ -387,12 +340,10 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
     $and: [{'type': req.query.service}]
   };
   }
-  Account.find(query, function(error, result){
-    if (!error) {
 
+  Account.find(query, function(error, result){
       var length = result.length;
       var pageNb = Math.ceil((result.length-3)/4);
-
       for(var i=0;i<2;i++) {
         console.log(!result[i].admin);
         if(!result[i].admin) {

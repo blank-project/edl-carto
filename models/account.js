@@ -21,7 +21,21 @@ var Account = new Schema({
     time: String,
     zone: String,
     meeting: Boolean,
-    geocoding: Array
+    geocoding: Array,
+    perm2: Boolean,
+    geocoding2: Array,
+    zone2: String,
+    adressNb2: Number,
+    adressType2: String,
+    adressName2: String,
+    adressZip2: Number,
+    metro2: String,
+    website2: String,
+    type2: String,
+    public2: String,
+    time2: String,
+    meeting2: Boolean
+
 });
 
 
