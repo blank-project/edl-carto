@@ -24,6 +24,13 @@ var options = {
 
 var geocoder = NodeGeocoder(options);
 
+
+function includes(needle, arrhaystack)
+{
+    return (arrhaystack.indexOf(needle) > -1);
+}
+
+
 function loggedIn(req, res, next) {
     if (req.user) {
         next();
@@ -54,6 +61,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
     res.redirect('/panel');
 });
 
+
 router.get('/panel',loggedIn, function(req, res) {
   if(req.user.username=='admin') {
     Account.find({}).exec(function(err, result) {
@@ -67,7 +75,17 @@ router.get('/panel',loggedIn, function(req, res) {
     var user = req.user.username
     Account.findOne({'username': user}).exec(function(err, result) {
       if (!err) {
-        res.render('panel', { title: "Panel", user : req.user, accounts : result})
+        if(result.type) {
+          var ecrivain = includes("Écrivains", result.type)
+          var interprete = includes("Interprètes", result.type)
+          var eadmin = includes("E-administration", result.type)
+        }
+        if(result.type2) {
+          var ecrivain2 = includes("Écrivains", result.type2)
+          var interprete2 = includes("Interprètes", result.type2)
+          var eadmin2 = includes("E-administration", result.type2)
+        }
+        res.render('panel', { title: "Panel", user : req.user, accounts : result, ecrivain: ecrivain, interprete: interprete, eadmin: eadmin, ecrivain2: ecrivain2, interprete2: interprete2, eadmin2: eadmin2})
       } else {
         // error handling
       }
@@ -88,7 +106,17 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
   } else {
     Account.findOne({'username': req.query.q}).exec(function(err, result) {
       if (!err) {
-        res.render('panel', { title: "Panel", user : req.user, accounts : result})
+        if(result.type) {
+          var ecrivain = includes("Écrivains", result.type)
+          var interprete = includes("Interprètes", result.type)
+          var eadmin = includes("E-administration", result.type)
+        }
+        if(result.type2) {
+          var ecrivain2 = includes("Écrivains", result.type2)
+          var interprete2 = includes("Interprètes", result.type2)
+          var eadmin2 = includes("E-administration", result.type2)
+        }
+        res.render('panel', { title: "Panel", user : req.user, accounts : result, ecrivain: ecrivain, interprete: interprete, eadmin: eadmin, ecrivain2: ecrivain2, interprete2: interprete2, eadmin2: eadmin2})
       } else {
         // error handling
       }

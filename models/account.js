@@ -16,7 +16,7 @@ var Account = new Schema({
     adressZip: Number,
     metro: String,
     website: String,
-    type: String,
+    type: Array,
     public: String,
     time: String,
     zone: String,
@@ -31,7 +31,7 @@ var Account = new Schema({
     adressZip2: Number,
     metro2: String,
     website2: String,
-    type2: String,
+    type2: Array,
     public2: String,
     time2: String,
     meeting2: Boolean

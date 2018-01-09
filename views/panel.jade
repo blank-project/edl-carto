@@ -90,9 +90,9 @@ block content
           .form-group
             label(for="type") Type de permanences :
             select.form-control(id="type", name="type" multiple)
-              option(value="ecrivains", selected=(accounts.type == "Écrivains" ? true : false)) Écrivains publics
-              option(value="eadministration", selected=(accounts.type == "E-administration" ? true : false)) E-administration
-              option(value="interprete", selected=(accounts.type == "Interprètes" ? true : false)) Interprète
+              option(value="Écrivains", selected=(ecrivain ? true : false)) Écrivains publics
+              option(value="E-administration", selected=(eadmin ? true : false)) E-administration
+              option(value="Interprètes", selected=(interprete ? true : false)) Interprète
             .form-group
               label(for="public") Publics :
               input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
@@ -173,9 +173,9 @@ block content
           .form-group
             label(for="type2") Type de permanences :
             select.form-control(id="type2", name="type2" multiple)
-              option(value="ecrivains", selected=(accounts.type == "Écrivains" ? true : false)) Écrivains publics
-              option(value="eadministration", selected=(accounts.type == "E-administration" ? true : false)) E-administration
-              option(value="interprete", selected=(accounts.type == "Interprètes" ? true : false)) Interprète
+              option(value="Écrivains", selected=(ecrivain2 ? true : false)) Écrivains publics
+              option(value="E-administration", selected=(eadmin2 ? true : false)) E-administration
+              option(value="Interprètes", selected=(interprete2 ? true : false)) Interprète
             .form-group
               label(for="public2") Publics :
               input.form-control(id="public2", type='text', name="public2", placeholder='Publics', value=accounts.public2)
