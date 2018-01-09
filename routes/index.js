@@ -534,7 +534,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
                .text(resultats[k].type, 306, 80+238*k, {width:130, align: 'center'});
              if(resultats[k].perm2) {
                doc.fontSize(12)
-                 .text(resultats[k].type2, 306, 310+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].type2, 306, 170+238*k, {width:130, align: 'center'});
              }
            doc.fontSize(12)
               .text(resultats[k].time, 439, 80+238*k, {width:130, align: 'center'});
@@ -544,7 +544,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
           if(resultats[k].perm2) {
             doc.fontSize(12)
-               .text(resultats[k].time2, 439, 310+238*k, {width:130, align: 'center'});
+               .text(resultats[k].time2, 439, 170+238*k, {width:130, align: 'center'});
             doc.fontSize(12)
                .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+238*k, {width:130, align: 'center'});
           }
