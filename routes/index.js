@@ -208,6 +208,7 @@ router.get('/img', function(req, res) {
 });
 
 router.get('/map', function(req, res) {
+  var queryFinal = [];
   //si params
   if(req.query.q || req.query.zone || req.query.service) {
     var user_input = new RegExp(".*" + req.query.q + ".*", "i");
@@ -220,29 +221,26 @@ router.get('/map', function(req, res) {
         }
       }
 
-  if(req.query.zone=="all") {
-    //si toutes zones
-    var query = {
-      $or: queryArray,
-      $and: [{'type': req.query.service}]
-    };
-  }else if (req.query.service=="all") {
-    //si tout services
-    var query = {
-      $or: queryArray,
-      $and: [{'zone': req.query.zone}]
-    };
-  } else {
-  //si zone unique
+
+    if (req.query.service !== "all") queryFinal.push({$or:[{'type': req.query.service}, {'type2': req.query.service}]});
+
+
+    if (req.query.zone !== "all") queryFinal.push({$or:[{'zone': req.query.zone}, {'zone2': req.query.zone}]});
+
+if(req.query.service==="all" && req.query.zone==="all") {
   var query = {
-    $or: queryArray,
-    $and: [{'zone': req.query.zone}],
-    $and: [{'type': req.query.service}]
+      $or: queryArray,
   };
-  }
+} else {
+  var query = {
+      $or: queryArray,
+      $and: queryFinal
+}
+  };
+
   Account.find(query, function(error, usersFound){
     if (!error) {
-      console.log(usersFound);
+      //console.log(usersFound);
       res.render('map', {title: 'Carte', user : req.user, accounts : usersFound, locals: {
                 data: usersFound
                 }})
@@ -357,57 +355,65 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
 
 
-  if(req.query.q || req.query.zone || req.query.service) {
-    var user_input = new RegExp(".*" + req.query.q + ".*", "i");
-      var queryArray = [];
-      for (var property in Account.schema.paths) {
-        if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
-          var obj = {};
-          obj[property] =  user_input;
-          queryArray.push(obj);
-        }
-      }
+      var queryFinal = [];
+      //si params
+      if(req.query.q || req.query.zone || req.query.service) {
+        var user_input = new RegExp(".*" + req.query.q + ".*", "i");
+          var queryArray = [];
+          for (var property in Account.schema.paths) {
+            if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
+              var obj = {};
+              obj[property] =  user_input;
+              queryArray.push(obj);
+            }
+          }
 
-  if(req.query.zone=="all") {
-    //si toutes zones
-    var query = {
-      $or: queryArray,
-      $and: [{'type': req.query.service}]
-    };
-  }else if (req.query.service=="all") {
-    //si toutes zones
-    var query = {
-      $or: queryArray,
-      $and: [{'zone': req.query.zone}]
-    };
-  } else {
-  //si zone unique
-  var query = {
-    $or: queryArray,
-    $and: [{'zone': req.query.zone}],
-    $and: [{'type': req.query.service}]
-  };
-  }
+
+        if (req.query.service !== "all") queryFinal.push({$or:[{'type': req.query.service}, {'type2': req.query.service}]});
+
+
+        if (req.query.zone !== "all") queryFinal.push({$or:[{'zone': req.query.zone}, {'zone2': req.query.zone}]});
+
+    if(req.query.service==="all" && req.query.zone==="all") {
+      var query = {
+          $or: queryArray,
+      };
+    } else {
+      var query = {
+          $or: queryArray,
+          $and: queryFinal
+    }
+      };
+
   Account.find(query, function(error, result){
     if (!error) {
 
       var length = result.length;
       var pageNb = Math.ceil((result.length-3)/4);
 
-      for(var i=0;i<2;i++) {
-        console.log(!result[i].admin);
-        if(!result[i].admin) {
+      for(var i=0;i<3;i++) {
+        if(result[i]) {
         doc.fontSize(14)
            .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
         doc.fontSize(12)
-           .text(result[i].geocoding[0].formattedAddress, 40, 270+259*i, {width:130, align: 'center'});
+           .text(result[i].geocoding[0].formattedAddress, 40, 230+259*i, {width:130, align: 'center'});
         doc.fontSize(12)
-           .text(result[i].metro, 40, 320+259*i, {width:130, align: 'center'});
+           .text(result[i].metro, 40, 270+259*i, {width:130, align: 'center'});
+       if(result[i].perm2) {
+         doc.moveTo(40, 300+259*i)   // lignes horizontales tableau première page
+            .dash(5)
+            .lineTo(572, 300+259*i)
+            .stroke();
+         doc.fontSize(12)
+            .text(result[i].geocoding2[0].formattedAddress, 40, 310+259*i, {width:130, align: 'center'});
+         doc.fontSize(12)
+            .text(result[i].metro2, 40, 350+259*i, {width:130, align: 'center'});
+       }
 
        doc.fontSize(12)
           .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
        doc.fontSize(12)
-          .text(result[i].structureMail, 173, 270+259*i, {width:130, align: 'center'});
+          .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
         doc.fontSize(12)
            .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
 
@@ -415,7 +421,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
           .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
         if(result[i].perm2) {
           doc.fontSize(12)
-            .text(result[i].type2, 306, 290+259*i, {width:130, align: 'center'});
+            .text(result[i].type2, 306, 310+259*i, {width:130, align: 'center'});
         }
       doc.fontSize(12)
          .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
@@ -425,9 +431,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
      if(result[i].perm2) {
        doc.fontSize(12)
-          .text(result[i].time2, 439, 290+259*i, {width:130, align: 'center'});
+          .text(result[i].time2, 439, 310+259*i, {width:130, align: 'center'});
        doc.fontSize(12)
-          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 310+259*i, {width:130, align: 'center'});
+          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+259*i, {width:130, align: 'center'});
      }
          //result.shift();
        }

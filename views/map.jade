@@ -20,16 +20,16 @@ block content
                 input#btn2(type='radio', name='zone', value='Portes')
                 |             les Portes du 20e
               label(style="color: #0c518a;")
-                input#btn3(type='radio', name='zone', value='all')
+                input#btn3(type='radio', name='zone', value='all', checked)
                 |             A l'echelle de l'arrondissement
               h3 Services
               select(name='service')
                 option(value='all') Tout service
-                option(value='ecrivains') Écrivains publics
-                option(value='eadministration') E-administration
-                option(value='interprete') Interprète
+                option(value='Écrivains') Écrivains publics
+                option(value='E-administration') E-administration
+                option(value='Interprètes') Interprète
               br
-              h3 Recherche
+              h3 Recherche tous champs
               input(type='text', name="q", ng-model='query', placeholder='Recherche associations')
               br
               br
@@ -88,12 +88,9 @@ block content
       var link2 = q === null ? 'q=&' : 'q='+q+'&'
       var link3 = service === null ? 'service=' : 'service='+service
 
-      console.log(link1);
-      console.log(link2);
-      console.log(link3);
+
       
       var finalLink = link1+link2+link3;
-      console.log(finalLink);
 
       document.getElementById("print").href = '/pdf?'+finalLink
     }
@@ -117,7 +114,7 @@ block content
            "<h3>"+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type+"</li><li>"+data.accounts[i].time+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public+"</li><li>"+data.accounts[i].adressNb+" "+data.accounts[i].adressType+" "+data.accounts[i].adressName+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro+"</li></ul></div>").addTo(map);
        }
        if(data.accounts[i].perm2) {
-         L.marker([data.accounts[i].geocoding2[0].latitude, data.accounts[i].geocoding2[0].longitude]).bindPopup(
+         L.marker([data.accounts[i].geocoding2[0].latitude, data.accounts[i].geocoding2[0].longitude], {icon: greenIcon}).bindPopup(
            "<h3> Hors les murs de "+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type2+"</li><li>"+data.accounts[i].time2+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public2+"</li><li>"+data.accounts[i].adressNb2+" "+data.accounts[i].adressType2+" "+data.accounts[i].adressName2+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro2+"</li></ul></div>").addTo(map);
          
        }

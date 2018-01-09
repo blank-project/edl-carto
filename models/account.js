@@ -6,7 +6,7 @@ var Account = new Schema({
     username: String,
     password: String,
     email: String,
-    admin: Boolean,
+    admin: { type: Boolean, default: 0 },
     structureName: String,
     structureMail: String,
     structurePhone: String,

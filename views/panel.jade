@@ -90,9 +90,9 @@ block content
           .form-group
             label(for="type") Type de permanences :
             select.form-control(id="type", name="type" multiple)
-              option(value="ecrivains", selected=(accounts.type == "ecrivains" ? true : false)) Écrivains publics
-              option(value="eadministration", selected=(accounts.type == "eadministration" ? true : false)) E-administration
-              option(value="interprete", selected=(accounts.type == "interprete" ? true : false)) Interprète
+              option(value="ecrivains", selected=(accounts.type == "Écrivains" ? true : false)) Écrivains publics
+              option(value="eadministration", selected=(accounts.type == "E-administration" ? true : false)) E-administration
+              option(value="interprete", selected=(accounts.type == "Interprètes" ? true : false)) Interprète
             .form-group
               label(for="public") Publics :
               input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
