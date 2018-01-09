@@ -672,9 +672,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
            for (var k=0;k<resultats.length;k++) {
 
              doc.fontSize(14)
-                .text(resultats[k].structureName, 40, 80+238*k, {width:130, align: 'center'});
+                .text(resultats[k].structureName, 40, 80+230*k, {width:130, align: 'center'});
              doc.fontSize(12)
-                .text(resultats[k].geocoding[0].formattedAddress, 40, 110+238*k, {width:130, align: 'center'});
+                .text(resultats[k].geocoding[0].formattedAddress, 40, 105+238*k, {width:130, align: 'center'});
              doc.fontSize(12)
                 .text(resultats[k].metro, 40, 150+238*k, {width:130, align: 'center'});
             if(resultats[k].perm2) {
@@ -683,9 +683,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
                  .lineTo(572, 300+238*k)
                  .stroke();
               doc.fontSize(12)
-                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 310+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 190+238*k, {width:130, align: 'center'});
               doc.fontSize(12)
-                 .text(resultats[k].metro2, 40, 350+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].metro2, 40, 240+238*k, {width:130, align: 'center'});
             }
 
             doc.fontSize(12)
@@ -699,7 +699,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
                .text(resultats[k].type, 306, 80+238*k, {width:130, align: 'center'});
              if(resultats[k].perm2) {
                doc.fontSize(12)
-                 .text(resultats[k].type2, 306, 310+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].type2, 306, 170+238*k, {width:130, align: 'center'});
              }
            doc.fontSize(12)
               .text(resultats[k].time, 439, 80+238*k, {width:130, align: 'center'});
@@ -709,9 +709,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
           if(resultats[k].perm2) {
             doc.fontSize(12)
-               .text(resultats[k].time2, 439, 310+238*k, {width:130, align: 'center'});
+               .text(resultats[k].time2, 439, 170+238*k, {width:130, align: 'center'});
             doc.fontSize(12)
-               .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+238*k, {width:130, align: 'center'});
+               .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 200+238*k, {width:130, align: 'center'});
           }
           console.log(i);
           console.log(result[0]);
