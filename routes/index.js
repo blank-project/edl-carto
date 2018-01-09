@@ -678,9 +678,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
              doc.fontSize(12)
                 .text(resultats[k].metro, 40, 150+238*k, {width:130, align: 'center'});
             if(resultats[k].perm2) {
-              doc.moveTo(40, 300+238*k)   // lignes horizontales tableau première page
+              doc.moveTo(40, 165+238*k)   // lignes horizontales tableau première page
                  .dash(5)
-                 .lineTo(572, 300+238*k)
+                 .lineTo(572, 165+238*k)
                  .stroke();
               doc.fontSize(12)
                  .text(resultats[k].geocoding2[0].formattedAddress, 40, 190+238*k, {width:130, align: 'center'});
