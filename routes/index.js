@@ -414,7 +414,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
       var length = result.length;
       var pageNb = Math.ceil((result.length-3)/4);
 
-      if(result.length<3) {
+      if(result.length<=3) {
         var stop = result.length;
       } else {
         var stop = 3;
@@ -468,7 +468,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
     }
     result.splice(0,3)
-    if(pageNb>1) {
+    if(pageNb>0) {
       for(var j=0;j<pageNb;j++){
 
         doc.addPage()
