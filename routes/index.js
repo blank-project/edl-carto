@@ -506,7 +506,6 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
            .text("Permanences", 306, 48, {width:133, align: 'center'});
         doc.fontSize(14)
            .text("Jours et horaires", 439, 48, {width:133, align: 'center'});
-           console.log("test iter")
            var resultats = result.slice(0,4);
            for (var k=0;k<resultats.length;k++) {
 
@@ -552,9 +551,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
             doc.fontSize(12)
                .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+238*k, {width:130, align: 'center'});
           }
-          console.log(i);
-          console.log(result[0]);
-          console.log("reste: "+result.length)
+
          }
          result.splice(0,4);
       }
@@ -634,7 +631,7 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
     }
     result.splice(0,3)
-    if(pageNb>1) {
+    if(pageNb>0) {
       for(var j=0;j<pageNb;j++){
         console.log("pagenb "+pageNb);
 
