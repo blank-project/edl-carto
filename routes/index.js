@@ -375,14 +375,6 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
       .text("Jours et horaires", 439, 168, {width:133, align: 'center'});
 
 
-
-
-
-
-
-
-
-
       var queryFinal = [];
       //si params
       if(req.query.q || req.query.zone || req.query.service) {
@@ -413,179 +405,75 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
     }
       };
 
+
+
+
   Account.find(query, function(error, result){
     if (!error) {
 
       var length = result.length;
       var pageNb = Math.ceil((result.length-3)/4);
 
-      for(var i=0;i<3;i++) {
-        if(result[i]) {
-        doc.fontSize(14)
-           .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].geocoding[0].formattedAddress, 40, 230+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].metro, 40, 270+259*i, {width:130, align: 'center'});
-       if(result[i].perm2) {
-         doc.moveTo(40, 300+259*i)   // lignes horizontales tableau première page
-            .dash(5)
-            .lineTo(572, 300+259*i)
-            .stroke();
-         doc.fontSize(12)
-            .text(result[i].geocoding2[0].formattedAddress, 40, 310+259*i, {width:130, align: 'center'});
-         doc.fontSize(12)
-            .text(result[i].metro2, 40, 350+259*i, {width:130, align: 'center'});
-       }
-
-       doc.fontSize(12)
-          .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
-       doc.fontSize(12)
-          .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
-
-       doc.fontSize(12)
-          .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
-        if(result[i].perm2) {
-          doc.fontSize(12)
-            .text(result[i].type2, 306, 310+259*i, {width:130, align: 'center'});
-        }
-      doc.fontSize(12)
-         .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
-      doc.fontSize(12)
-         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
-
-
-     if(result[i].perm2) {
-       doc.fontSize(12)
-          .text(result[i].time2, 439, 310+259*i, {width:130, align: 'center'});
-       doc.fontSize(12)
-          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+259*i, {width:130, align: 'center'});
-     }
-         //result.shift();
-       }
-     }
-  doc.pipe(res);
-  doc.end();
-
-      /*res.render('map', {title: 'Carte', user : req.user, accounts : usersFound, locals: {
-                data: usersFound
-              }})*/
-
-    } else {
-      // error handling
-    }
-
-  });
-
-} else {
-  //si pas de params
-  Account.find({}).exec(function(err, result) {
-    if (!err) {
-
-      var length = result.length;
-      var pageNb = Math.ceil((result.length-3)/4);
-
-      for(var i=0;i<3;i++) {
-        console.log(result[i]);
-        if(!result[i].admin) {
-          console.log(result[i].structureName);
-        doc.fontSize(14)
-           .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].geocoding[0].formattedAddress, 40, 270+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].metro, 40, 320+259*i, {width:130, align: 'center'});
-
-       doc.fontSize(12)
-          .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
-       doc.fontSize(12)
-          .text(result[i].structureMail, 173, 270+259*i, {width:130, align: 'center'});
-        doc.fontSize(12)
-           .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
-
-       doc.fontSize(12)
-          .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
-        if(result[i].perm2) {
-          doc.fontSize(12)
-            .text(result[i].type2, 306, 290+259*i, {width:130, align: 'center'});
-        }
-      doc.fontSize(12)
-         .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
-      doc.fontSize(12)
-         .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
-
-
-     if(result[i].perm2) {
-       doc.fontSize(12)
-          .text(result[i].time2, 439, 290+259*i, {width:130, align: 'center'});
-       doc.fontSize(12)
-          .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 310+259*i, {width:130, align: 'center'});
-     }
-
-         //result.shift();
+      console.log(result.length);
+      console.log("nombre de pages : "+pageNb);
+      if(result.length<3) {
+        var stop = result.length;
+      } else {
+        var stop = 3;
       }
+      for(var i=0;i<stop;i++) {
+        if(!result[i].admin) {
+          doc.fontSize(14)
+             .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].geocoding[0].formattedAddress, 40, 230+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].metro, 40, 270+259*i, {width:130, align: 'center'});
+         if(result[i].perm2) {
+           doc.moveTo(40, 300+259*i)   // lignes horizontales tableau première page
+              .dash(5)
+              .lineTo(572, 300+259*i)
+              .stroke();
+           doc.fontSize(12)
+              .text(result[i].geocoding2[0].formattedAddress, 40, 310+259*i, {width:130, align: 'center'});
+           doc.fontSize(12)
+              .text(result[i].metro2, 40, 350+259*i, {width:130, align: 'center'});
+         }
+
+         doc.fontSize(12)
+            .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
+         doc.fontSize(12)
+            .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
+
+         doc.fontSize(12)
+            .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
+          if(result[i].perm2) {
+            doc.fontSize(12)
+              .text(result[i].type2, 306, 310+259*i, {width:130, align: 'center'});
+          }
+        doc.fontSize(12)
+           .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
+        doc.fontSize(12)
+           .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
+
+
+       if(result[i].perm2) {
+         doc.fontSize(12)
+            .text(result[i].time2, 439, 310+259*i, {width:130, align: 'center'});
+         doc.fontSize(12)
+            .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+259*i, {width:130, align: 'center'});
+       }
+
+      }
+
     }
-  doc.pipe(res);
-  doc.end();
+    result.splice(0,3)
+    if(pageNb>1) {
+      for(var j=0;j<pageNb;j++){
+        console.log("pagenb "+pageNb);
 
-
-      /*res.render('map', {title: 'Carte', user : req.user, accounts : result, locals: {
-                data: result
-              }})*/
-
-
-
-
-    } else {
-      // error handling
-    }
-  })
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//  Account.find({}).exec(function(err, result) {
-  //  if (!err) {
-
-
-
-    /*  for(var j=1;j<pageNb+1;j++) {
         doc.addPage()
         .moveTo(40, 40)
         .lineTo(572, 40)
@@ -618,52 +506,234 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
            .text("Permanences", 306, 48, {width:133, align: 'center'});
         doc.fontSize(14)
            .text("Jours et horaires", 439, 48, {width:133, align: 'center'});
+           console.log("test iter")
+           var resultats = result.slice(0,4);
+           for (var k=0;k<resultats.length;k++) {
 
-           //for(var i=2*j;i<3*j+4;i++) {
-           for(var i = 0;i<3;i++) {
-             if(result[i]) {
-             console.log(result[i].structureName);
              doc.fontSize(14)
-                .text(result[i].structureName, 40, 80+i*238, {width:130, align: 'center'});
-             /*doc.fontSize(12)
-                .text(result[i].geocoding[0].formattedAddress, 40, 270+259*i, {width:130, align: 'center'});
+                .text(resultats[k].structureName, 40, 80+238*k, {width:130, align: 'center'});
              doc.fontSize(12)
-                .text(result[i].metro, 40, 320+259*i, {width:130, align: 'center'});
-
-            doc.fontSize(12)
-               .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
-            doc.fontSize(12)
-               .text(result[i].structureMail, 173, 270+259*i, {width:130, align: 'center'});
+                .text(resultats[k].geocoding[0].formattedAddress, 40, 110+238*k, {width:130, align: 'center'});
              doc.fontSize(12)
-                .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
-
-            doc.fontSize(12)
-               .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
-
-           doc.fontSize(12)
-              .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
-           doc.fontSize(12)
-              .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 270+259*i, {width:130, align: 'center'});
+                .text(resultats[k].metro, 40, 150+238*k, {width:130, align: 'center'});
+            if(resultats[k].perm2) {
+              doc.moveTo(40, 300+238*k)   // lignes horizontales tableau première page
+                 .dash(5)
+                 .lineTo(572, 300+238*k)
+                 .stroke();
+              doc.fontSize(12)
+                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 310+238*k, {width:130, align: 'center'});
+              doc.fontSize(12)
+                 .text(resultats[k].metro2, 40, 350+238*k, {width:130, align: 'center'});
             }
-            result.splice(0,1);
+
+            doc.fontSize(12)
+               .text(resultats[k].structurePhone, 173, 80+238*k, {width:130, align: 'center'});
+            doc.fontSize(12)
+               .text(resultats[k].structureMail, 173, 110+238*k, {width:130, align: 'center'});
+             doc.fontSize(12)
+                .text(resultats[k].website, 173, 150+238*k, {width:130, align: 'center'});
+
+            doc.fontSize(12)
+               .text(resultats[k].type, 306, 80+238*k, {width:130, align: 'center'});
+             if(resultats[k].perm2) {
+               doc.fontSize(12)
+                 .text(resultats[k].type2, 306, 310+238*k, {width:130, align: 'center'});
+             }
+           doc.fontSize(12)
+              .text(resultats[k].time, 439, 80+238*k, {width:130, align: 'center'});
+           doc.fontSize(12)
+              .text((resultats[k].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 110+238*k, {width:130, align: 'center'});
+
+
+          if(resultats[k].perm2) {
+            doc.fontSize(12)
+               .text(resultats[k].time2, 439, 310+238*k, {width:130, align: 'center'});
+            doc.fontSize(12)
+               .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+238*k, {width:130, align: 'center'});
           }
+          console.log(i);
+          console.log(result[0]);
+          console.log("reste: "+result.length)
+         }
+         result.splice(0,4);
+      }
 
-      } */
 
-                    //si plus de 3 items
+    }
 
-  //  } else {
+  doc.pipe(res);
+  doc.end();
+
+
+    } else {
       // error handling
-  //  }
+    }
+
+  });
+
+} else {
+  //si pas de params
+  Account.find({}).exec(function(err, result) {
 
 
+    if (!err) {
+
+      var length = result.length;
+      var pageNb = Math.ceil((result.length-3)/4);
+
+      console.log(result.length);
+      console.log("nombre de pages : "+pageNb);
+
+      for(var i=0;i<3;i++) {
+        if(!result[i].admin) {
+          doc.fontSize(14)
+             .text(result[i].structureName, 40, 200+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].geocoding[0].formattedAddress, 40, 230+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].metro, 40, 270+259*i, {width:130, align: 'center'});
+         if(result[i].perm2) {
+           doc.moveTo(40, 300+259*i)   // lignes horizontales tableau première page
+              .dash(5)
+              .lineTo(572, 300+259*i)
+              .stroke();
+           doc.fontSize(12)
+              .text(result[i].geocoding2[0].formattedAddress, 40, 310+259*i, {width:130, align: 'center'});
+           doc.fontSize(12)
+              .text(result[i].metro2, 40, 350+259*i, {width:130, align: 'center'});
+         }
+
+         doc.fontSize(12)
+            .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
+         doc.fontSize(12)
+            .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
+          doc.fontSize(12)
+             .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
+
+         doc.fontSize(12)
+            .text(result[i].type, 306, 200+259*i, {width:130, align: 'center'});
+          if(result[i].perm2) {
+            doc.fontSize(12)
+              .text(result[i].type2, 306, 310+259*i, {width:130, align: 'center'});
+          }
+        doc.fontSize(12)
+           .text(result[i].time, 439, 200+259*i, {width:130, align: 'center'});
+        doc.fontSize(12)
+           .text((result[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 230+259*i, {width:130, align: 'center'});
 
 
-//  }) //close query
+       if(result[i].perm2) {
+         doc.fontSize(12)
+            .text(result[i].time2, 439, 310+259*i, {width:130, align: 'center'});
+         doc.fontSize(12)
+            .text((result[i].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+259*i, {width:130, align: 'center'});
+       }
+
+      }
+
+    }
+    result.splice(0,3)
+    if(pageNb>1) {
+      for(var j=0;j<pageNb;j++){
+        console.log("pagenb "+pageNb);
+
+        doc.addPage()
+        .moveTo(40, 40)
+        .lineTo(572, 40)
+        .moveTo(40,70)
+        .lineTo(572, 70)
+        .moveTo(40,301)
+        .lineTo(572, 301)
+        .moveTo(40,532)
+        .lineTo(572, 532)
+        .moveTo(40,763)
+        .lineTo(572, 763)
+        .moveTo(40,994)
+        .lineTo(572, 994)
+        .moveTo(40,40)    //ligne verticale gauche
+        .lineTo(40, 994)
+        .moveTo(572,40)    //ligne verticale droite
+        .lineTo(572, 994)
+        .moveTo(173,40)    //ligne verticale 2
+        .lineTo(173, 994)
+        .moveTo(306,40)    //ligne verticale 3
+        .lineTo(306, 994)
+        .moveTo(439,40)    //ligne verticale 4
+        .lineTo(439, 994)
+        .stroke();
+        doc.fontSize(14)
+           .text("Lieu", 40, 48, {width:133, align: 'center'});
+        doc.fontSize(14)
+           .text("Contact", 173, 48, {width:133, align: 'center'});
+        doc.fontSize(14)
+           .text("Permanences", 306, 48, {width:133, align: 'center'});
+        doc.fontSize(14)
+           .text("Jours et horaires", 439, 48, {width:133, align: 'center'});
+           console.log("test iter")
+           var resultats = result.slice(0,4);
+           for (var k=0;k<resultats.length;k++) {
+
+             doc.fontSize(14)
+                .text(resultats[k].structureName, 40, 80+238*k, {width:130, align: 'center'});
+             doc.fontSize(12)
+                .text(resultats[k].geocoding[0].formattedAddress, 40, 110+238*k, {width:130, align: 'center'});
+             doc.fontSize(12)
+                .text(resultats[k].metro, 40, 150+238*k, {width:130, align: 'center'});
+            if(resultats[k].perm2) {
+              doc.moveTo(40, 300+238*k)   // lignes horizontales tableau première page
+                 .dash(5)
+                 .lineTo(572, 300+238*k)
+                 .stroke();
+              doc.fontSize(12)
+                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 310+238*k, {width:130, align: 'center'});
+              doc.fontSize(12)
+                 .text(resultats[k].metro2, 40, 350+238*k, {width:130, align: 'center'});
+            }
+
+            doc.fontSize(12)
+               .text(resultats[k].structurePhone, 173, 80+238*k, {width:130, align: 'center'});
+            doc.fontSize(12)
+               .text(resultats[k].structureMail, 173, 110+238*k, {width:130, align: 'center'});
+             doc.fontSize(12)
+                .text(resultats[k].website, 173, 150+238*k, {width:130, align: 'center'});
+
+            doc.fontSize(12)
+               .text(resultats[k].type, 306, 80+238*k, {width:130, align: 'center'});
+             if(resultats[k].perm2) {
+               doc.fontSize(12)
+                 .text(resultats[k].type2, 306, 310+238*k, {width:130, align: 'center'});
+             }
+           doc.fontSize(12)
+              .text(resultats[k].time, 439, 80+238*k, {width:130, align: 'center'});
+           doc.fontSize(12)
+              .text((resultats[k].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 110+238*k, {width:130, align: 'center'});
 
 
+          if(resultats[k].perm2) {
+            doc.fontSize(12)
+               .text(resultats[k].time2, 439, 310+238*k, {width:130, align: 'center'});
+            doc.fontSize(12)
+               .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 330+238*k, {width:130, align: 'center'});
+          }
+          console.log(i);
+          console.log(result[0]);
+          console.log("reste: "+result.length)
+         }
+         result.splice(0,4);
+      }
 
 
+    }
+
+  doc.pipe(res);
+  doc.end();
+
+    } else {
+      // error handling
+    }
+  })
+}
 });
 
 module.exports = router;
