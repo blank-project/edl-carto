@@ -509,18 +509,18 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
              doc.fontSize(14)
                 .text(resultats[k].structureName, 40, 80+238*k, {width:130, align: 'center'});
              doc.fontSize(12)
-                .text(resultats[k].geocoding[0].formattedAddress, 40, 110+238*k, {width:130, align: 'center'});
+                .text(resultats[k].geocoding[0].formattedAddress, 40, 105+238*k, {width:130, align: 'center'});
              doc.fontSize(12)
                 .text(resultats[k].metro, 40, 150+238*k, {width:130, align: 'center'});
             if(resultats[k].perm2) {
-              doc.moveTo(40, 300+238*k)   // lignes horizontales tableau première page
+              doc.moveTo(40, 165+238*k)   // lignes horizontales tableau première page
                  .dash(5)
-                 .lineTo(572, 300+238*k)
+                 .lineTo(572, 165+238*k)
                  .stroke();
               doc.fontSize(12)
-                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 310+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].geocoding2[0].formattedAddress, 40, 190+238*k, {width:130, align: 'center'});
               doc.fontSize(12)
-                 .text(resultats[k].metro2, 40, 350+238*k, {width:130, align: 'center'});
+                 .text(resultats[k].metro2, 40, 240+238*k, {width:130, align: 'center'});
             }
 
             doc.fontSize(12)
@@ -662,7 +662,6 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
            .text("Permanences", 306, 48, {width:133, align: 'center'});
         doc.fontSize(14)
            .text("Jours et horaires", 439, 48, {width:133, align: 'center'});
-           console.log("test iter")
            var resultats = result.slice(0,4);
            for (var k=0;k<resultats.length;k++) {
 
