@@ -269,7 +269,7 @@ if(req.query.service==="all" && req.query.zone==="all") {
   Account.find(query, function(error, usersFound){
     if (!error) {
       //console.log(usersFound);
-      res.render('map', {title: 'Carte', user : req.user, accounts : usersFound, locals: {
+      res.render('map', {title: 'Carte', req: req.query,user : req.user, accounts : usersFound, locals: {
                 data: usersFound
                 }})
 
@@ -283,7 +283,7 @@ if(req.query.service==="all" && req.query.zone==="all") {
   //si pas de params
   Account.find({}).exec(function(err, result) {
     if (!err) {
-      res.render('map', {title: 'Carte', user : req.user, accounts : result, locals: {
+      res.render('map', {title: 'Carte', req: req.query, user : req.user, accounts : result, locals: {
                 data: result
                 }})
 

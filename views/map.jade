@@ -2,7 +2,6 @@ extends layout
 
 block content
   .container
-  
     .row(style="margin-top: 150px;")
       form
     .row
@@ -14,23 +13,23 @@ block content
             form(action="/map", method="get")
               h3 Zone géographique
               label(style="margin-right: 20px; color: #0c518a;")
-                input#btn1(type='radio', name='zone', value='Belleville')
+                input#btn1(type='radio', name='zone', value='Belleville', checked=(!req ? false : (req.zone === "Belleville" ? true : false)))
                 |             Belleville-Amandiers-Pelleport
               label(style="margin-right: 20px; color: #0c518a;")
-                input#btn2(type='radio', name='zone', value='Portes')
+                input#btn2(type='radio', name='zone', value='Portes', checked=(!req ? false : (req.zone === "Portes" ? true : false)))
                 |             les Portes du 20e
               label(style="color: #0c518a;")
-                input#btn3(type='radio', name='zone', value='all', checked)
+                input#btn3(type='radio', name='zone', value='all', checked=(!req ? false : (req.zone === "all" ? true : false)))
                 |             A l'echelle de l'arrondissement
               h3 Services
               select(name='service')
-                option(value='all') Tout service
-                option(value='Écrivains publics') Écrivains publics
-                option(value='E-administration') E-administration
-                option(value='Interprètes') Interprète
+                option(value='all', selected=(!req ? false : (req.service === "all" ? true : false))) Tout service
+                option(value='Écrivains publics', selected=(!req ? false : (req.service === "Écrivains publics" ? true : false))) Écrivains publics
+                option(value='E-administration', selected=(!req ? false : (req.service === "E-administration" ? true : false))) E-administration
+                option(value='Interprètes', selected=(!req ? false : (req.service === "Interprètes" ? true : false))) Interprète
               br
               h3 Recherche tous champs
-              input(type='text', name="q", ng-model='query', placeholder='Recherche associations')
+              input(type='text', name="q", ng-model='query', placeholder='Recherche associations', value=(!req ? "" : req.q))
               br
               br
               button 
