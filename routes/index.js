@@ -7,6 +7,7 @@ var router = express.Router();
 var fileUpload = require('express-fileupload');
 var fs = require('fs');
 var PDFDocument = require('pdfkit');
+var phantom = require('phantom');
 
 
 
@@ -440,9 +441,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
          doc.fontSize(12)
             .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
-         doc.fontSize(12)
+         doc.fontSize(9)
             .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
-          doc.fontSize(12)
+          doc.fontSize(9)
              .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
 
          doc.fontSize(12)
@@ -525,9 +526,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
             doc.fontSize(12)
                .text(resultats[k].structurePhone, 173, 80+238*k, {width:130, align: 'center'});
-            doc.fontSize(12)
+            doc.fontSize(9)
                .text(resultats[k].structureMail, 173, 110+238*k, {width:130, align: 'center'});
-             doc.fontSize(12)
+             doc.fontSize(9)
                 .text(resultats[k].website, 173, 150+238*k, {width:130, align: 'center'});
 
             doc.fontSize(12)
@@ -598,9 +599,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
          doc.fontSize(12)
             .text(result[i].structurePhone, 173, 200+259*i, {width:130, align: 'center'});
-         doc.fontSize(12)
+         doc.fontSize(9)
             .text(result[i].structureMail, 173, 230+259*i, {width:130, align: 'center'});
-          doc.fontSize(12)
+          doc.fontSize(9)
              .text(result[i].website, 173, 320+259*i, {width:130, align: 'center'});
 
          doc.fontSize(12)
@@ -684,9 +685,9 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
 
             doc.fontSize(12)
                .text(resultats[k].structurePhone, 173, 80+238*k, {width:130, align: 'center'});
-            doc.fontSize(12)
+            doc.fontSize(9)
                .text(resultats[k].structureMail, 173, 110+238*k, {width:130, align: 'center'});
-             doc.fontSize(12)
+             doc.fontSize(9)
                 .text(resultats[k].website, 173, 150+238*k, {width:130, align: 'center'});
 
             doc.fontSize(12)
@@ -707,9 +708,6 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
             doc.fontSize(12)
                .text((resultats[k].meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous"), 439, 200+238*k, {width:130, align: 'center'});
           }
-          console.log(i);
-          console.log(result[0]);
-          console.log("reste: "+result.length)
          }
          result.splice(0,4);
       }
@@ -726,5 +724,24 @@ doc.moveTo(40, 160)   // lignes horizontales tableau première page
   })
 }
 });
+
+
+
+
+
+
+router.get('/test', function(req, res) {
+
+
+
+});
+
+
+
+
+
+
+
+
 
 module.exports = router;
