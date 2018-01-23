@@ -7,7 +7,6 @@ var router = express.Router();
 var fileUpload = require('express-fileupload');
 var fs = require('fs');
 var PDFDocument = require('pdfkit');
-var phantom = require('phantom');
 
 
 
