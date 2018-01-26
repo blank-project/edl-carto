@@ -278,3 +278,83 @@ li {
   list-style-type: none;
   color: black;
 }
+
+.show-print {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.center {
+  text-align: center;
+}
+
+/* ---- PRINT ---- */
+
+@media print {
+  nav {
+    display: none;
+  }
+
+  body, .container {
+    background-color: white;
+    display: block;
+  }
+
+  form {
+    display: none;
+  }
+
+  div.row#main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .hide-print {
+    display: none;
+  }
+
+  .show-print {
+    display: block;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    margin: 50px 0px;
+    border: 2px solid black;
+  }
+
+  /* avoid page line cut on print */
+  tr {
+    border-top: 2px solid red;
+    /* page-break-inside: avoid; */
+  }
+
+  tr.hors-les-murs {
+    border-top: 10px dotted red;
+  }
+
+  td:not(:first-child), th:not(:first-child) {
+    text-align: center;
+    width: 25%;
+    border-left: 1px solid black;
+  }
+
+  td, th {
+    text-align: center;
+    width: 25%;
+  }
+
+  #map, #map-container {
+    display: block;
+    position: relative;
+  }
+
+  /* avoid page cut map on print */
+  div#map{
+    /* page-break-inside: avoid; */
+  }
+}
