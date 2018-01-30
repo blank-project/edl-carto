@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #DF225A;
 }
@@ -332,6 +336,22 @@ li {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.t .t-row {
+  border-top: 2px solid black;
+  height: 200px;
+}
+
+.t {
+  border: 1px solid black;
+}
+
+.t-row * {
+  margin: 0;
+}
+
+.t h4 {
+  border: 1px solid black;
+}
 
 /* ---- PRINT ---- */
 
@@ -349,9 +369,17 @@ li {
     display: none;
   }
 
-  div.row#main {
-    display: flex;
-    flex-direction: column-reverse;
+  table {
+    width: 100%;
+    border: solid #000 !important;
+    border-width: 1px 0 0 1px !important;
+  }
+
+  th, td {
+    width: 25%;
+    text-align: center;
+    border: solid #000 !important;
+    border-width: 0 1px 1px 0 !important;
   }
 
   .hide-print, .hide-print * {
@@ -366,41 +394,7 @@ li {
     display: block;
   }
 
-  table {
-    display: block;
-    width: 100%;
-    margin: 50px 0px;
-    border: 2px solid black;
-  }
-
-  /* avoid page line cut on print */
-  tr {
-    border-top: 2px solid black;
-    /* page-break-inside: avoid; */
-  }
-
-  tr.hors-les-murs {
-    border-top: 10px dotted black;
-  }
-
-  td:not(:first-child), th:not(:first-child) {
-    text-align: center;
-    width: 25%;
-    border-left: 1px solid black;
-  }
-
-  td, th {
-    text-align: center;
-    width: 25%;
-  }
-
-  #map, #map-container {
-    display: block;
-    position: relative;
-  }
-
-  /* avoid page cut map on print */
-  div#map{
-    /* page-break-inside: avoid; */
+  div.hors-les-murs {
+    border-top: 2px dotted black;
   }
 }
