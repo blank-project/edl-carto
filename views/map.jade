@@ -41,39 +41,75 @@ block content
             each item in accounts
               if !item.admin
                 h3= item.structureName
+                p Informations sur les permanences :
                 ul
-                  li= item.type
+                  li
+                    b Types de permanences :
+                    =  item.type
                     if item.type && item.type.includes('Interprètes')
                       li Langues parlées (pour les interprètes) :
                         span  #{item.languages}
-                  li= item.time
+                  if item.public
+                    li
+                      b Publics :
+                      = item.public
+                p Informations pratiques :
+                ul
+                  if item.time
+                    li
+                      b Horaires :
+                      = item.time
                   li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
-                  li= item.public
-                  li= item.adressNb+' '+item.adressType+' '+item.adressName
-                  li= item.structureMail
-                  li= item.structurePhone
                   li
-                    a(href="#{item.website}")
-                      = item.website
-                  li= item.metro
+                    b Adresse :
+                    = item.adressNb+' '+item.adressType+' '+item.adressName
+                  if item.structureMail
+                    li
+                      b Email :
+                      = item.structureMail
+                  if item.structurePhone
+                    li
+                      b Téléphone :
+                      = item.structurePhone
+                  if item.website
+                    li
+                      b Site internet :
+                      a(href="#{item.website}")
+                        = item.website
+                  if item.metro
+                    li
+                      b Métro :
+                      = item.metro
+                hr
 
                 if item.perm2
+                  h3= item.structureName
                   h4 Hors les murs
+                  p Informations sur les permanences :
                   ul
-                    li= item.type2
+                    li Types de permanences : #{item.type2}
                       if item.type2 && item.type2.includes('Interprètes')
                         li Langues parlées (pour les interprètes) :
                           span  #{item.languages2}
-                    li= item.time2
+                    if item.public2
+                      li Publics : #{item.public2}
+                  p Informations pratiques :
+                  ul
+                    if item.time2
+                      li Horaires : #{item.time2}
                     li= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
-                    li= item.public2
-                    li= item.adressNb2+' '+item.adressType2+' '+item.adressName2
-                    li= item.structureMail2
-                    li= item.structurePhone2
-                    li= item.metro2
-                    li
-                      a(href='http://'+item.website, target='_blank')
-                        = item.website
+                    li Adresse : #{item.adressNb2+' '+item.adressType2+' '+item.adressName2}
+                    if item.structureMail2
+                      li Email : #{item.structureMail2}
+                    if item.structurePhone2
+                      li Téléphone : #{item.structurePhone2}
+                    if item.website2
+                      li Site internet :
+                        a(href="#{item.website2}")
+                          = item.website2
+                    if item.metro2
+                      li Métro : #{item.metro2}
+                    hr
       // print section
       .col-md-12.show-print#structures-print
         h2.center Permanences d'accès aux droits
@@ -99,7 +135,7 @@ block content
                       b= item.structureName
                   td
                     p= item.adressNb+' '+item.adressType+' '+item.adressName
-                    p.metro= item.metro
+                    p.metro Metro : #{item.metro}
 
                   td.2
                     p= item.structureMail
@@ -112,7 +148,7 @@ block content
                       if item.type && item.type.includes('Interprètes')
                         p Langues parlées (pour les interprètes) :
                           span  #{item.languages}
-                    p= item.public
+                    p Public : #{item.public}
                   td.4
                     p= item.time
                     p= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
@@ -125,7 +161,7 @@ block content
                         b Hors les murs
                     td
                       p= item.adressNb2+' '+item.adressType2+' '+item.adressName2
-                      p.metro= item.metro2
+                      p.metro Métro : #{item.metro2}
 
                     td.2
                       p= item.structureMail2
@@ -139,6 +175,7 @@ block content
                         if item.type2 && item.type2.includes('Interprètes')
                           p Langues parlées (pour les interprètes) :
                             span  #{item.languages}
+                      p Public : #{item.public}
                     td.4
                       p= item.time2
                       p= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
