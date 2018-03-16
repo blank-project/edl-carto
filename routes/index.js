@@ -127,8 +127,18 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
 
 
 router.post('/panel',loggedIn, function(req, res) {
-
-
+  if (!req.body.perm2) {
+    Account.findOne({username: req.body.username}).exec(function(err, acc) {
+      // if perm hors les murs was ok, reverse it back to false
+      if (acc.perm2) {
+        Account.update({username: req.body.username}, {
+          perm2: false
+        }).exec(function(err) {
+          console.log(err);
+        });
+      }
+    })
+  }
 
   if(req.body.perm2 || req.body.adressNb2) {
 
