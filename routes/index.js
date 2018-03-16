@@ -159,7 +159,8 @@ router.post('/panel',loggedIn, function(req, res) {
           type2: req.body.type2,
           public2: req.body.public2,
           time2: req.body.time2,
-          meeting2: req.body.meeting2
+          meeting2: req.body.meeting2,
+          languages2: req.body.languages2
         }).exec(function(err) {
           if (!err) {
             var user = req.user.username
@@ -206,7 +207,8 @@ router.post('/panel',loggedIn, function(req, res) {
         type: req.body.type,
         public: req.body.public,
         time: req.body.time,
-        meeting: req.body.meeting
+        meeting: req.body.meeting,
+        languages: req.body.languages
       }).exec(function(err) {
         if (!err) {
           var user = req.user.username

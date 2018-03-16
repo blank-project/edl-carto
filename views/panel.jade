@@ -25,10 +25,10 @@ block content
           .form-group
             label(for="website") Site internet :
             input.form-control(type='text', id="website", name="website", placeholder='Site internet', value=accounts.website)
-        .col-xs-3.col-xs-offset-1    
+        .col-xs-3.col-xs-offset-1
           .form-group
             label(for="adressNb") Numéro de l'adresse :
-            input.form-control(type='number', name="adressNb", id="adressNb", placeholder='N°', value=accounts.adressNb)
+            input.form-control(type='text', name="adressNb", id="adressNb", placeholder='N°', value=accounts.adressNb)
           .form-group
             label(for="adressType") Type de voie :
             select.form-control(name="adressType", id="adressType")
@@ -78,7 +78,7 @@ block content
           .form-group
             label(for="adressZip") Code postal :
             input.form-control(type='text', name="adressZip", id="adressZip", placeholder='Code Postal', value=accounts.adressZip)
-        .col-xs-3.col-xs-offset-1    
+        .col-xs-3.col-xs-offset-1
           .form-group
             label(for="metro") Station de métro/tram/bus :
             input.form-control(type='text', name="metro", id="metro", placeholder='Station de métro', value=accounts.metro)
@@ -103,16 +103,19 @@ block content
             .form-group
               label(for="meeting") Sur rendez-vous :
               input.form-control(type='checkbox', name="meeting", id="meeting", value='1', checked=(accounts.meeting === true ? true : false))
+            .form-group
+              label(for="languages") Langues parlées par les interprètes (si besoin) :
+              input.form-control(type='text', name="languages", id="languages", value=accounts.languages)
       .row
         .col-xs-4
           .form-group
-            label(for="perm2") Ajout d'une permanence hors les murs : 
+            label(for="perm2") Ajout d'une permanence hors les murs :
               input(type='checkbox', name="perm2", id="permCheck2", value="true", checked=(accounts.perm2 === true ? true : false))
       .row#perm2
-        .col-xs-3.col-xs-offset-5    
+        .col-xs-3.col-xs-offset-5
           .form-group
             label(for="adressNb2") Numéro de l'adresse :
-            input.form-control(type='number', name="adressNb2", id="adressNb2", placeholder='N°', value=accounts.adressNb2)
+            input.form-control(type='text', name="adressNb2", id="adressNb2", placeholder='N°', value=accounts.adressNb2)
           .form-group
             label(for="adressType2") Type de voie :
             select.form-control(name="adressType2", id="adressType2")
@@ -162,7 +165,7 @@ block content
           .form-group
             label(for="adressZip2") Code postal :
             input.form-control(type='text', name="adressZip2", id="adressZip2", placeholder='Code Postal', value=accounts.adressZip2)
-        .col-xs-3.col-xs-offset-1    
+        .col-xs-3.col-xs-offset-1
           .form-group
             label(for="metro2") Station de métro/tram/bus :
             input.form-control(type='text', name="metro2", id="metro2", placeholder='Station de métro', value=accounts.metro2)
@@ -186,7 +189,9 @@ block content
               input.form-control(id="time2",type='text', name="time2", placeholder='Horaires', value=accounts.time2)
             .form-group
               label(for="meeting2") Sur rendez-vous :
-              input.form-control(type='checkbox', name="meeting2", id="meeting2", value='1', checked=(accounts.meeting2 === true ? true : false))
+              input.form-control(type='checkbox', name="meeting2", id="meeting2", value='1', checked=(accounts.meeting2 === true ? true : false)).form-group
+              label(for="languages2") Langues parlées par les interprètes (si besoin) :
+              input.form-control(type='text', name="languages2", id="languages2", value=accounts.languages)
 
       .row
         .col-xs-2.col-xs-offset-5

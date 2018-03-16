@@ -43,6 +43,8 @@ block content
                 h3= item.structureName
                 ul
                   li= item.type
+                    if item.type == 'Interprètes'
+                      span  (#{item.languages})
                   li= item.time
                   li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
                   li= item.public
@@ -55,6 +57,8 @@ block content
                   h4 Hors les murs
                   ul
                     li= item.type2
+                      if item.type2 == 'Interprètes'
+                        span  (#{item.languages2})
                     li= item.time2
                     li= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
                     li= item.public2
@@ -73,9 +77,9 @@ block content
             tr
               th
                 p Lieu
-              th 
+              th
                 p Contact
-              th 
+              th
                 p Permanences
               th
                 p Jours et horaires
@@ -88,13 +92,15 @@ block content
                       b= item.structureName
                     p= item.adressNb+' '+item.adressType+' '+item.adressName
                     p.metro= item.metro
-                  
+
                   td.2
                     p= item.structureMail
                     p= item.structurePhone
-                    
+
                   td.3
                     p= item.type
+                      if item.type == 'Interprètes'
+                        span  (#{item.languages})
                     p= item.public
                   td.4
                     p= item.time
@@ -107,15 +113,17 @@ block content
                         b Hors les murs
                       p= item.adressNb2+' '+item.adressType2+' '+item.adressName2
                       p.metro= item.metro2
-                    
+
                     td.2
                       p= item.structureMail2
                       p= item.structurePhone2
                       a(href='http://'+item.website, target='_blank')
                         = item.website
-                      
+
                     td.3
                       p= item.type2
+                        if item.type2 == 'Interprètes'
+                          span  (#{item.languages2})
                     td.4
                       p= item.time2
                       p= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
