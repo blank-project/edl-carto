@@ -87,6 +87,7 @@ block content
             select.form-control(name="zone", id="zone")
               option(value="Belleville", selected=(accounts.zone === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
               option(value="Portes", selected=(accounts.zone === "Portes" ? true : false))  Les Portes du 20e
+              option(value="Arrondissement", selected=(accounts.zone === "Arrondissement" ? true : false))  A l'échelle de l'arrondissement
           .form-group
             label(for="type") Type de permanences :
             select.form-control(id="type", name="type" multiple)
@@ -170,6 +171,7 @@ block content
             select.form-control(name="zone2", id="zone2")
               option(value="Belleville", selected=(accounts.zone2 === "Belleville" ? true : false)) Belleville-Amandiers-Pelleport
               option(value="Portes", selected=(accounts.zone2 === "Portes" ? true : false))  Les Portes du 20e
+              option(value="Arrondissement", selected=(accounts.zone === "Arrondissement" ? true : false))  A l'échelle de l'arrondissement
           .form-group
             label(for="type2") Type de permanences :
             select.form-control(id="type2", name="type2" multiple)
@@ -189,19 +191,3 @@ block content
       .row
         .col-xs-2.col-xs-offset-5
           button.btn.btn-primary(type='submit') Envoyer
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
