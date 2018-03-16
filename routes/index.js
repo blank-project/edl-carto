@@ -107,12 +107,12 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
     Account.findOne({'username': req.query.q}).exec(function(err, result) {
       if (!err) {
         if(result.type) {
-          var ecrivain = includes("Écrivains", result.type)
+          var ecrivain = includes("Écrivains publics", result.type)
           var interprete = includes("Interprètes", result.type)
           var eadmin = includes("E-administration", result.type)
         }
         if(result.type2) {
-          var ecrivain2 = includes("Écrivains", result.type2)
+          var ecrivain2 = includes("Écrivains publics", result.type2)
           var interprete2 = includes("Interprètes", result.type2)
           var eadmin2 = includes("E-administration", result.type2)
         }

@@ -89,27 +89,32 @@ block content
               option(value="Portes", selected=(accounts.zone === "Portes" ? true : false))  Les Portes du 20e
               option(value="Arrondissement", selected=(accounts.zone === "Arrondissement" ? true : false))  A l'échelle de l'arrondissement
           .form-group
-            label(for="type") Type de permanences :
-            select.form-control(id="type", name="type" multiple)
-              option(value="Écrivains publics", selected=(ecrivain ? true : false)) Écrivains publics
-              option(value="E-administration", selected=(eadmin ? true : false)) E-administration
-              option(value="Interprètes", selected=(interprete ? true : false)) Interprète
-            .form-group
-              label(for="public") Publics :
-              input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
-            .form-group
-              label(for="time") Horaires :
-              input.form-control(id="time",type='text', name="time", placeholder='Horaires', value=accounts.time)
-            .form-group
-              label(for="meeting") Sur rendez-vous :
-              input.form-control(type='checkbox', name="meeting", id="meeting", value='1', checked=(accounts.meeting === true ? true : false))
-            .form-group
-              label(for="languages") Langues parlées par les interprètes (si besoin) :
-              input.form-control(type='text', name="languages", id="languages", value=accounts.languages)
+            p
+              b Types de permanence :
+            label(for="ecrivains") Écrivains publics
+            input(value="Écrivains publics", name="type", type="checkbox", id="ecrivains" checked=(ecrivain ? true : false))
+            br
+            label(for="eadmin") E-administration
+            input(value="E-administration", type="checkbox", id="eadmin", name="type", checked=(eadmin ? true : false))
+            br
+            label(for="interpretes") Interprètes
+            input(value="Interprètes", type="checkbox", id="interpretes", name="type", checked=(interprete ? true : false))
+          .form-group
+            label(for="public") Publics :
+            input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
+          .form-group
+            label(for="time") Horaires :
+            input.form-control(id="time",type='text', name="time", placeholder='Horaires', value=accounts.time)
+          .form-group
+            label(for="meeting") Sur rendez-vous :
+            input.form-control(type='checkbox', name="meeting", id="meeting", value='1', checked=(accounts.meeting === true ? true : false))
+          .form-group
+            label(for="languages") Langues parlées par les interprètes (si besoin) :
+            input.form-control(type='text', name="languages", id="languages", value=accounts.languages)
       .row
         .col-xs-4
           .form-group
-            label(for="perm2") Ajout d'une permanence hors les murs :
+              label(for="perm2") Ajout d'une permanence hors les murs :
               input(type='checkbox', name="perm2", id="permCheck2", value="true", checked=(accounts.perm2 === true ? true : false))
       .row#perm2
         .col-xs-3.col-xs-offset-5
@@ -176,11 +181,16 @@ block content
               option(value="Portes", selected=(accounts.zone2 === "Portes" ? true : false))  Les Portes du 20e
               option(value="Arrondissement", selected=(accounts.zone === "Arrondissement" ? true : false))  A l'échelle de l'arrondissement
           .form-group
-            label(for="type2") Type de permanences :
-            select.form-control(id="type2", name="type2" multiple)
-              option(value="Écrivains publics", selected=(ecrivain2 ? true : false)) Écrivains publics
-              option(value="E-administration", selected=(eadmin2 ? true : false)) E-administration
-              option(value="Interprètes", selected=(interprete2 ? true : false)) Interprète
+            p
+              b Types de permanence :
+            label(for="ecrivains") Écrivains publics
+            input(value="Écrivains publics", name="type2", type="checkbox", id="ecrivains" checked=(ecrivain2 ? true : false))
+            br
+            label(for="eadmin") E-administration
+            input(value="E-administration", type="checkbox", id="eadmin", name="type2", checked=(eadmin2 ? true : false))
+            br
+            label(for="interpretes") Interprètes
+            input(value="Interprètes", type="checkbox", id="interpretes", name="type2", checked=(interprete2 ? true : false))
             .form-group
               label(for="public2") Publics :
               input.form-control(id="public2", type='text', name="public2", placeholder='Publics', value=accounts.public2)
@@ -190,8 +200,9 @@ block content
             .form-group
               label(for="meeting2") Sur rendez-vous :
               input.form-control(type='checkbox', name="meeting2", id="meeting2", value='1', checked=(accounts.meeting2 === true ? true : false)).form-group
+            .form-group
               label(for="languages2") Langues parlées par les interprètes (si besoin) :
-              input.form-control(type='text', name="languages2", id="languages2", value=accounts.languages)
+              input.form-control(type='text', name="languages2", id="languages2", value=accounts.languages2)
 
       .row
         .col-xs-2.col-xs-offset-5
