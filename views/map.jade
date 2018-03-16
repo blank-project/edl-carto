@@ -52,6 +52,9 @@ block content
                   li= item.adressNb+' '+item.adressType+' '+item.adressName
                   li= item.structureMail
                   li= item.structurePhone
+                  li
+                    a(href="#{item.website}")
+                      = item.website
                   li= item.metro
 
                 if item.perm2
@@ -101,10 +104,12 @@ block content
                   td.2
                     p= item.structureMail
                     p= item.structurePhone
-
+                    p
+                      a(href="#{item.website}", target="_blank")
+                        = item.website
                   td.3
                     p= item.type
-                      if item.type.includes('Interprètes')
+                      if item.type && item.type.includes('Interprètes')
                         p Langues parlées (pour les interprètes) :
                           span  #{item.languages}
                     p= item.public
@@ -131,7 +136,7 @@ block content
                     td.3
                       if item.type2 != null
                         p= item.type2
-                        if item.type2.includes('Interprètes')
+                        if item.type2 && item.type2.includes('Interprètes')
                           p Langues parlées (pour les interprètes) :
                             span  #{item.languages}
                     td.4

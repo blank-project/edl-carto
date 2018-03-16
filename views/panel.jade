@@ -104,7 +104,7 @@ block content
             input.form-control(id="public", type='text', name="public", placeholder='Publics', value=accounts.public)
           .form-group
             label(for="time") Horaires :
-            input.form-control(id="time",type='text', name="time", placeholder='Horaires', value=accounts.time)
+            textarea.form-control(id="time",type='text', name="time", placeholder='Horaires', value=accounts.time)
           .form-group
             label(for="meeting") Sur rendez-vous :
             input.form-control(type='checkbox', name="meeting", id="meeting", value='1', checked=(accounts.meeting === true ? true : false))
@@ -196,7 +196,7 @@ block content
               input.form-control(id="public2", type='text', name="public2", placeholder='Publics', value=accounts.public2)
             .form-group
               label(for="time2") Horaires :
-              input.form-control(id="time2",type='text', name="time2", placeholder='Horaires', value=accounts.time2)
+              textarea.form-control(id="time2",type='text', name="time2", placeholder='Horaires', value=accounts.time2)
             .form-group
               label(for="meeting2") Sur rendez-vous :
               input.form-control(type='checkbox', name="meeting2", id="meeting2", value='1', checked=(accounts.meeting2 === true ? true : false)).form-group
