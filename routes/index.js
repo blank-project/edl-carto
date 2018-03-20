@@ -317,10 +317,13 @@ router.get('/map', function(req, res) {
         var query = {
           $and: queryFinal
         }
-      } else {
+      } else if (queryArray) {
         var query = {
           $or: queryArray
         }
+      } else {
+        /* if no params */
+        var query = {}
       }
     }
 
