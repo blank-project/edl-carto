@@ -39,18 +39,32 @@ function loggedIn(req, res, next) {
     }
 }
 
+function WordCount(str) {
+  return str.split(" ").length;
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Accueil', user: req.user });
 });
 
 router.post('/register',loggedIn, function(req, res, next) {
+	if(WordCount(req.body.username)==1) {
     Account.register(new Account({ username : req.body.username, email : req.body.email }), req.body.password, function(err, account) {
         if (err) {
           return res.render('register', {user : req.user, error : err.message });
         }
         res.redirect('/panel');
     });
+	} else {
+		Account.find({}).exec(function(err, result) {
+			if (!err) {
+				res.render('panel-admin', { title: "Panel",user : req.user, accounts : result, errUser: "Le nom de l'utilisateur ne doit pas dépasser un mot."})
+			} else {
+				// error handling
+			}
+		})
+	}
 });
 
 router.get('/login', function(req, res) {
