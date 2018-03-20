@@ -307,18 +307,24 @@ router.get('/map', function(req, res) {
       };
     } else {
       /* if input user from query text */
-      if (queryArray) {
+      if (queryArray && queryFinal.length > 0) {
         var query = {
           $or: queryArray,
           $and: queryFinal
         }
       }
-      else {
+      else if (queryFinal.length > 0 && !queryArray){
         var query = {
           $and: queryFinal
         }
+      } else {
+        var query = {
+          $or: queryArray
+        }
       }
     }
+
+    console.log(query)
 
     Account.find(query, function(error, usersFound){
       if (!error) {
