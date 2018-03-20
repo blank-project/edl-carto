@@ -265,59 +265,93 @@ router.get('/map', function(req, res) {
   var queryFinal = [];
   //si params
   if(req.query.q || req.query.zone || req.query.service) {
-    var user_input = new RegExp(".*" + req.query.q + ".*", "i");
+    if (req.query.q.length > 0) {
+      var user_input = new RegExp(".*" + req.query.q + ".*", "i");
       var queryArray = [];
       for (var property in Account.schema.paths) {
-        if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
+        if (Account.schema.paths.hasOwnProperty(property) &&
+            Account.schema.paths[property]["instance"] === "String") {
           var obj = {};
           obj[property] =  user_input;
           queryArray.push(obj);
         }
       }
-
-
-    if (req.query.service !== "all") queryFinal.push({$or:[{'type': req.query.service}, {'type2': req.query.service}]});
-
-
-    if (req.query.zone !== "all") queryFinal.push({$or:[{'zone': req.query.zone}, {'zone2': req.query.zone}]});
-
-if(req.query.service==="all" && req.query.zone==="all") {
-  var query = {
-      $or: queryArray,
-  };
-} else {
-  var query = {
-      $or: queryArray,
-      $and: queryFinal
-}
-  };
-
-  Account.find(query, function(error, usersFound){
-    if (!error) {
-      //console.log(usersFound);
-      res.render('map', {title: 'Carte', req: req.query,user : req.user, accounts : usersFound, locals: {
-                data: usersFound
-                }})
-
-    } else {
-      // error handling
     }
 
-  });
 
-} else {
-  //si pas de params
-  Account.find({}).exec(function(err, result) {
-    if (!err) {
-      res.render('map', {title: 'Carte', req: req.query, user : req.user, accounts : result, locals: {
-                data: result
-                }})
-
-    } else {
-      // error handling
+    if (req.query.service &&
+        req.query.service !== "all" &&
+        req.query.service.length > 0) {
+      queryFinal.push({
+        $or:[
+          {'type': req.query.service},
+          {'type2': req.query.service}
+        ]
+      });
     }
-  })
-}
+
+    if (req.query.zone &&
+        req.query.zone !== "all" &&
+        req.query.zone.length > 0) {
+      queryFinal.push({
+        $or:[
+          {'zone': req.query.zone},
+          {'zone2': req.query.zone}
+        ]
+      });
+    }
+
+    if(req.query.service==="all" && req.query.zone==="all") {
+      var query = {
+        $or: queryArray,
+      };
+    } else {
+      /* if input user from query text */
+      if (queryArray) {
+        var query = {
+          $or: queryArray,
+          $and: queryFinal
+        }
+      }
+      else {
+        var query = {
+          $and: queryFinal
+        }
+      }
+    }
+
+    Account.find(query, function(error, usersFound){
+      if (!error) {
+        //console.log(usersFound);
+        res.render('map', {
+          title: 'Carte',
+          req: req.query,user : req.user,
+          accounts : usersFound,
+          locals: {
+            data: usersFound
+          }
+        })
+
+      } else {
+        // error handling
+        console.log('error while retrieveing data from db', error)
+      }
+
+    });
+
+  } else {
+    //si pas de params
+    Account.find({}).exec(function(err, result) {
+      if (!err) {
+        res.render('map', {title: 'Carte', req: req.query, user : req.user, accounts : result, locals: {
+          data: result
+        }})
+
+      } else {
+        // error handling
+      }
+    })
+  }
 });
 
 router.post('/upload',loggedIn, function(req, res) {
@@ -352,89 +386,88 @@ router.get('/files',loggedIn, function(req, res) {
 router.get('/remove-file',loggedIn, function(req, res) {
   if(req.query.id) {
     Files.remove({_id : req.query.id}, function (err) {
-  if (err) return handleError(err);
-    res.redirect('/files');
-  })}
+      if (err) return handleError(err);
+      res.redirect('/files');
+    })}
 });
 
 
 router.get('/pdf', function(req, res) {
 
   doc = new PDFDocument({
-  size: 'LEGAL', // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
-  info: {
-    Title: 'Permanences d\'accès aux droits',
-    Author: 'Some Author',
-  }
-});
+    size: 'LEGAL', // See other page sizes here: https://github.com/devongovett/pdfkit/blob/d95b826475dd325fb29ef007a9c1bf7a527e9808/lib/page.coffee#L69
+    info: {
+      Title: 'Permanences d\'accès aux droits',
+      Author: 'Some Author',
+    }
+  });
 
-doc.fontSize(25).text('Permanences d\'accès aux droits', 120, 80); //title
+  doc.fontSize(25).text('Permanences d\'accès aux droits', 120, 80); //title
 
-doc.moveTo(40, 160)   // lignes horizontales tableau première page
-   .lineTo(572, 160)
-   .moveTo(40,190)
-   .lineTo(572, 190)
-   .moveTo(40,449)
-   .lineTo(572, 449)
-   .moveTo(40,708)
-   .lineTo(572, 708)
-   .moveTo(40,967)
-   .lineTo(572, 967)
-   .moveTo(40,160)    //ligne verticale gauche
-   .lineTo(40, 967)
-   .moveTo(572,160)    //ligne verticale droite
-   .lineTo(572, 967)
-   .moveTo(173,160)    //ligne verticale 2
-   .lineTo(173, 967)
-   .moveTo(306,160)    //ligne verticale 3
-   .lineTo(306, 967)
-   .moveTo(439,160)    //ligne verticale 4
-   .lineTo(439, 967)
-   .stroke();
-   doc.fontSize(14)
-      .text("Lieu", 40, 168, {width:133, align: 'center'});
-   doc.fontSize(14)
-      .text("Contact", 173, 168, {width:133, align: 'center'});
-   doc.fontSize(14)
-      .text("Permanences", 306, 168, {width:133, align: 'center'});
-   doc.fontSize(14)
-      .text("Jours et horaires", 439, 168, {width:133, align: 'center'});
-
-
-      var queryFinal = [];
-      //si params
-      if(req.query.q || req.query.zone || req.query.service) {
-        var user_input = new RegExp(".*" + req.query.q + ".*", "i");
-          var queryArray = [];
-          for (var property in Account.schema.paths) {
-            if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
-              var obj = {};
-              obj[property] =  user_input;
-              queryArray.push(obj);
-            }
-          }
+  doc.moveTo(40, 160)   // lignes horizontales tableau première page
+     .lineTo(572, 160)
+     .moveTo(40,190)
+     .lineTo(572, 190)
+     .moveTo(40,449)
+     .lineTo(572, 449)
+     .moveTo(40,708)
+     .lineTo(572, 708)
+     .moveTo(40,967)
+     .lineTo(572, 967)
+     .moveTo(40,160)    //ligne verticale gauche
+     .lineTo(40, 967)
+     .moveTo(572,160)    //ligne verticale droite
+     .lineTo(572, 967)
+     .moveTo(173,160)    //ligne verticale 2
+     .lineTo(173, 967)
+     .moveTo(306,160)    //ligne verticale 3
+     .lineTo(306, 967)
+     .moveTo(439,160)    //ligne verticale 4
+     .lineTo(439, 967)
+     .stroke();
+  doc.fontSize(14)
+     .text("Lieu", 40, 168, {width:133, align: 'center'});
+  doc.fontSize(14)
+     .text("Contact", 173, 168, {width:133, align: 'center'});
+  doc.fontSize(14)
+     .text("Permanences", 306, 168, {width:133, align: 'center'});
+  doc.fontSize(14)
+     .text("Jours et horaires", 439, 168, {width:133, align: 'center'});
 
 
-        if (req.query.service !== "all") queryFinal.push({$or:[{'type': req.query.service}, {'type2': req.query.service}]});
+  var queryFinal = [];
+  //si params
+  if(req.query.q || req.query.zone || req.query.service) {
+    var user_input = new RegExp(".*" + req.query.q + ".*", "i");
+    var queryArray = [];
+    for (var property in Account.schema.paths) {
+      if (Account.schema.paths.hasOwnProperty(property)  && Account.schema.paths[property]["instance"] === "String") {
+        var obj = {};
+        obj[property] =  user_input;
+        queryArray.push(obj);
+      }
+    }
 
 
-        if (req.query.zone !== "all") queryFinal.push({$or:[{'zone': req.query.zone}, {'zone2': req.query.zone}]});
+    if (req.query.service !== "all") queryFinal.push({$or:[{'type': req.query.service}, {'type2': req.query.service}]});
+
+    if (req.query.zone !== "all") queryFinal.push({$or:[{'zone': req.query.zone}, {'zone2': req.query.zone}]});
 
     if(req.query.service==="all" && req.query.zone==="all") {
       var query = {
-          $or: queryArray,
+        $or: queryArray,
       };
     } else {
       var query = {
-          $or: queryArray,
-          $and: queryFinal
-    }
-      };
+        $or: queryArray,
+        $and: queryFinal
+      }
+    };
 
 
 
 
-  Account.find(query, function(error, result){
+    Account.find(query, function(error, result){
     if (!error) {
 
       var length = result.length;
