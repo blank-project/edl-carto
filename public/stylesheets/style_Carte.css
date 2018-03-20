@@ -376,7 +376,8 @@ li {
   }
 
   th, td {
-    width: 25%;
+    width: 20% !important;
+    word-break: break-word;
     text-align: center;
     border: solid #000 !important;
     border-width: 0 1px 1px 0 !important;
