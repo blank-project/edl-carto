@@ -301,10 +301,15 @@ router.get('/map', function(req, res) {
       });
     }
 
-    if(req.query.service==="all" && req.query.zone==="all") {
-      var query = {
-        $or: queryArray,
-      };
+    if(req.query.service === "all" &&
+       req.query.zone === "all") {
+      if (queryArray) {
+        var query = {
+          $or: queryArray,
+        };
+      } else {
+        var query = {};
+      }
     } else {
       /* if input user from query text */
       if (queryArray && queryFinal.length > 0) {
