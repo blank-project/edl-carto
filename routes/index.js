@@ -269,6 +269,9 @@ router.get('/map', function(req, res) {
       var user_input = new RegExp(".*" + req.query.q + ".*", "i");
       var queryArray = [];
       for (var property in Account.schema.paths) {
+        if (property === 'hash' ||
+            property === 'salt' ||
+            property === '_id') continue
         if (Account.schema.paths.hasOwnProperty(property) &&
             Account.schema.paths[property]["instance"] === "String") {
           var obj = {};
