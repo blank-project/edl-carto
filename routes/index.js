@@ -125,7 +125,7 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
           var interprete = includes("Interprètes", result.type)
           var eadmin = includes("E-administration", result.type)
         }
-        if(result.type2 && result.type.length > 0) {
+        if(result.type2 && result.type2.length > 0) {
           var ecrivain2 = includes("Écrivains publics", result.type2)
           var interprete2 = includes("Interprètes", result.type2)
           var eadmin2 = includes("E-administration", result.type2)
