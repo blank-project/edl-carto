@@ -44,56 +44,56 @@ block content
                 p Informations sur les permanences :
                 ul
                   li
-                    b Types de permanences :
+                    b Types de permanences : 
                     =  item.type
                     if item.type && item.type.includes('Interprètes')
-                      li Langues parlées (pour les interprètes) :
+                      li Langues parlées (pour les interprètes) : 
                         span  #{item.languages}
                   if item.public
                     li
                       b Publics :
                       = item.public
-                p Informations pratiques :
+                p Informations pratiques : 
                 ul
                   if item.time
                     li
-                      b Horaires :
+                      b Horaires : 
                       = item.time
                   li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
                   li
-                    b Adresse :
+                    b Adresse : 
                     = item.adressNb+' '+item.adressType+' '+item.adressName
                   if item.structureMail
                     li
-                      b Email :
+                      b Email : 
                       = item.structureMail
                   if item.structurePhone
                     li
-                      b Téléphone :
+                      b Téléphone : 
                       = item.structurePhone
                   if item.website
                     li
-                      b Site internet :
+                      b Site internet : 
                       a(href="#{item.website}")
                         = item.website
                   if item.metro
                     li
-                      b Métro :
+                      b Métro : 
                       = item.metro
                 hr
 
                 if item.perm2
                   h3= item.structureName
                   h4 Hors les murs
-                  p Informations sur les permanences :
+                  p Informations sur les permanences : 
                   ul
                     li Types de permanences : #{item.type2}
                       if item.type2 && item.type2.includes('Interprètes')
-                        li Langues parlées (pour les interprètes) :
+                        li Langues parlées (pour les interprètes) : 
                           span  #{item.languages2}
                     if item.public2
                       li Publics : #{item.public2}
-                  p Informations pratiques :
+                  p Informations pratiques : 
                   ul
                     if item.time2
                       li Horaires : #{item.time2}
@@ -137,19 +137,19 @@ block content
                     p= item.adressNb+' '+item.adressType+' '+item.adressName
                     p.metro Metro : #{item.metro}
 
-                  td.2
+                  td
                     p= item.structureMail
                     p= item.structurePhone
                     p
                       a(href="#{item.website}", target="_blank")
                         = item.website
-                  td.3
+                  td
                     p= item.type
                       if item.type && item.type.includes('Interprètes')
                         p Langues parlées (pour les interprètes) :
                           span  #{item.languages}
                     p Public : #{item.public}
-                  td.4
+                  td
                     p= item.time
                     p= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
 
@@ -163,20 +163,20 @@ block content
                       p= item.adressNb2+' '+item.adressType2+' '+item.adressName2
                       p.metro Métro : #{item.metro2}
 
-                    td.2
+                    td
                       p= item.structureMail2
                       p= item.structurePhone2
                       a(href='http://'+item.website, target='_blank')
                         = item.website
 
-                    td.3
+                    td
                       if item.type2 != null
                         p= item.type2
                         if item.type2 && item.type2.includes('Interprètes')
                           p Langues parlées (pour les interprètes) :
                             span  #{item.languages}
                       p Public : #{item.public}
-                    td.4
+                    td
                       p= item.time2
                       p= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
     #images
