@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var fileUpload = require('express-fileupload');
-
+var flash = require('express-flash')
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -25,6 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(flash());
 
 app.use(require('express-session')({
     secret: 'keyboard cat',

@@ -7,7 +7,7 @@ var router = express.Router();
 var fileUpload = require('express-fileupload');
 var fs = require('fs');
 var PDFDocument = require('pdfkit');
-
+var flash = require('express-flash');
 
 
 
@@ -139,6 +139,40 @@ router.get('/panel-admin-update',loggedIn, function(req, res) {
 
 });
 
+router.post('/password',loggedIn, function(req, res) {
+	if(req.body.pwd===req.body.pwd2) {
+		Account.findByUsername(req.body.username).then(function(sanitizedUser){
+		    if (sanitizedUser){
+		        sanitizedUser.setPassword(req.body.pwd, function(){
+		            sanitizedUser.save();
+								req.flash('info', 'Le mot de passe a été modifié.');
+								res.redirect('panel');
+		        });
+		    } else {
+		        res.status(500).json({message: 'This user does not exist'});
+		    }
+		},function(err){
+		    console.error(err);
+		})
+	} else {
+		req.flash('info', 'Les mots de passe ne correspondent pas.');
+		res.redirect('panel');
+	}
+});
+
+router.get('/password',loggedIn, function(req, res) {
+	if(!req.query.q) {
+		res.redirect('panel');
+	} else {
+	Account.findOne({'username': req.query.q}).exec(function(err, result) {
+		if (!err) {
+			res.render('password', { title: "Panel", user : req.user, accounts : result})
+		} else {
+			console.log(err);
+		}
+	})
+	}
+});
 
 router.post('/panel',loggedIn, function(req, res) {
   if (!req.body.perm2) {
