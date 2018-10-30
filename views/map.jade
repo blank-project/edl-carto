@@ -2,52 +2,241 @@ extends layout
 
 block content
   .container
-    .row
-      button#buttonHideList(type='button', name='button', value='') Zone Géographique du 20e
-      #listHide.hide
-        label
-          input#btn1(type='checkbox', name='checkbox', value='lol')
-          |             Belleville-Amandiers-Pelleport
-        label
-          input#btn2(type='checkbox', name='checkbox', value='lol')
-          |             les Portes du 20e
-        label
-          input#btn3(type='checkbox', name='checkbox', value='lol')
-          |             A l'echelle de l'arrondissement
-  
-  .container(style="margin-top:150px;")
-    .row
-      .col-md-8
-        #map  
-      .col-md-4
-        h2 Liste des Structures
-        div.liste(ng-app='myApp')
-          div(ng-controller='MainCtrl')
-            input(type='text', ng-model='query', placeholder='Recherche associations')
+    #loader.hide-print
+      span.glyphicon.glyphicon-print.white
+      div#loader-gif
+    .row(style="margin-top: 150px;").hide-print
+      form
+    .row#main
+      .col-md-8#map-container
+        #map
+      .col-md-4.hide-print
+        div.liste
+          div
+            form(action="/map", method="get")
+              h3 Zone géographique
+              label(style="margin-right: 20px; color: #0c518a;")
+                input#btn1(type='radio', name='zone', value='Belleville', checked=(!req ? false : (req.zone === "Belleville" ? true : false)))
+                |             Belleville-Amandiers-Pelleport
+              label(style="margin-right: 20px; color: #0c518a;")
+                input#btn2(type='radio', name='zone', value='Portes', checked=(!req ? false : (req.zone === "Portes" ? true : false)))
+                |             les Portes du 20e
+              label(style="color: #0c518a;")
+                input#btn3(type='radio', name='zone', value='all', checked=(!req ? false : (req.zone === "all" ? true : false)))
+                |             A l'echelle de l'arrondissement
+              h3 Services
+              select(name='service')
+                option(value='all', selected=(!req ? false : (req.service === "all" ? true : false))) Tout service
+                option(value='Écrivains publics', selected=(!req ? false : (req.service === "Écrivains publics" ? true : false))) Écrivains publics
+                option(value='E-administration', selected=(!req ? false : (req.service === "E-administration" ? true : false))) E-administration
+                option(value='Interprètes', selected=(!req ? false : (req.service === "Interprètes" ? true : false))) Interprète
+              br
+              h3 Recherche tous champs
+              input(type='text', name="q", ng-model='query', placeholder='Recherche associations', value=(!req ? "" : req.q))
+              br
+              br
+              button
+                a(href="/map") Reset
+              input(type="submit", value="Ok!")
             each item in accounts
-              ul
+              if !item.admin
                 h3= item.structureName
-                li= item.structureMail
-                li= item.structurePhone
-                li= item.metro
-                li= item.website
-                li= item.type
-                li= item.public
-                li= item.time
-                li=(item.username==='admin' ? '' : (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous"))
+                p Informations sur les permanences :
+                ul
+                  li
+                    b Types de permanences : 
+                    =  item.type
+                    if item.type && item.type.includes('Interprètes')
+                      li Langues parlées (pour les interprètes) : 
+                        span  #{item.languages}
+                  if item.public
+                    li
+                      b Publics :
+                      = item.public
+                p Informations pratiques : 
+                ul
+                  if item.time
+                    li
+                      b Horaires : 
+                      = item.time
+                  li= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
+                  li
+                    b Adresse : 
+                    = item.adressNb+' '+item.adressType+' '+item.adressName
+                  if item.structureMail
+                    li
+                      b Email : 
+                      = item.structureMail
+                  if item.structurePhone
+                    li
+                      b Téléphone : 
+                      = item.structurePhone
+                  if item.website
+                    li
+                      b Site internet : 
+                      a(href="#{item.website}")
+                        = item.website
+                  if item.metro
+                    li
+                      b Métro : 
+                      = item.metro
+                hr
 
+                if item.perm2
+                  h3= item.structureName
+                  h4 Hors les murs
+                  p Informations sur les permanences : 
+                  ul
+                    li Types de permanences : #{item.type2}
+                      if item.type2 && item.type2.includes('Interprètes')
+                        li Langues parlées (pour les interprètes) : 
+                          span  #{item.languages2}
+                    if item.public2
+                      li Publics : #{item.public2}
+                  p Informations pratiques : 
+                  ul
+                    if item.time2
+                      li Horaires : #{item.time2}
+                    li= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
+                    li Adresse : #{item.adressNb2+' '+item.adressType2+' '+item.adressName2}
+                    if item.structureMail2
+                      li Email : #{item.structureMail2}
+                    if item.structurePhone2
+                      li Téléphone : #{item.structurePhone2}
+                    if item.website2
+                      li Site internet :
+                        a(href="#{item.website2}")
+                          = item.website2
+                    if item.metro2
+                      li Métro : #{item.metro2}
+                    hr
+      // print section
+      .col-md-12.show-print#structures-print
+        h2.center Permanences d'accès aux droits
+        table
+          thead
+            tr
+              th
+                p Structure
+              th
+                p Lieu
+              th
+                p Contact
+              th
+                p Permanences
+              th
+                p Jours et horaires
+          tbody
+            each item in accounts
+              if !item.admin
+                tr
+                  td
+                    p
+                      b= item.structureName
+                  td
+                    p= item.adressNb+' '+item.adressType+' '+item.adressName
+                    p.metro Metro : #{item.metro}
+
+                  td
+                    p= item.structureMail
+                    p= item.structurePhone
+                    p
+                      a(href="#{item.website}", target="_blank")
+                        = item.website
+                  td
+                    p= item.type
+                      if item.type && item.type.includes('Interprètes')
+                        p Langues parlées (pour les interprètes) :
+                          span  #{item.languages}
+                    p Public : #{item.public}
+                  td
+                    p= item.time
+                    p= (item.meeting===false ? "Sans rendez-vous" : "Avec rendez-vous")
+
+                if item.perm2
+                  tr.hors-les-murs
+                    td
+                      p= item.structureName
+                      p
+                        b Hors les murs
+                    td
+                      p= item.adressNb2+' '+item.adressType2+' '+item.adressName2
+                      p.metro Métro : #{item.metro2}
+
+                    td
+                      p= item.structureMail2
+                      p= item.structurePhone2
+                      a(href='http://'+item.website, target='_blank')
+                        = item.website
+
+                    td
+                      if item.type2 != null
+                        p= item.type2
+                        if item.type2 && item.type2.includes('Interprètes')
+                          p Langues parlées (pour les interprètes) :
+                            span  #{item.languages}
+                      p Public : #{item.public}
+                    td
+                      p= item.time2
+                      p= (item.meeting2===false ? "Sans rendez-vous" : "Avec rendez-vous")
+    #images
   script(type='text/javascript').
-    var data = !{JSON.stringify(locals)}
+    function $_GET(param) {
+      var vars = {};
+      window.location.href.replace( location.hash, '' ).replace(
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+          vars[key] = value !== undefined ? value : '';
+        }
+      );
 
-    var map = L.map('map').setView([48.871764,2.385085], 15);
-         
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      if ( param ) {
+        return vars[param] ? vars[param] : null;
+      }
+      return vars;
+    }
+
+    if($_GET) {
+      var zone = $_GET('zone');
+      var service = $_GET('service');
+      var q = $_GET('q');
+      var link1 = zone === null ? 'zone=&' : 'zone='+zone+'&'
+      var link2 = q === null ? 'q=&' : 'q='+q+'&'
+      var link3 = service === null ? 'service=' : 'service='+service
+
+
+
+      var finalLink = link1+link2+link3;
+
+      document.getElementById("print").href = '/pdf?'+finalLink
+    }
+
+    var data = !{JSON.stringify(locals)}
+    console.log(data)
+    if($_GET('zone')==='Portes') {
+      var map = L.map('map').setView([48.859599,2.409270], 15);
+    }else if ($_GET('zone')==='Belleville') {
+      var map = L.map('map').setView([48.871764,2.385085], 15);
+    } else {
+      var map = L.map('map').setView([48.871764,2.385085], 13);
+    }
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-         
+
      // markers
      for (var i = 0; i < data.accounts.length; i++) {
        if(data.accounts[i].geocoding[0]) {
+       var meeting = data.accounts[i].meeting===false ? "Sans rendez-vous" : "Avec rendez-vous";
+       if(!data.accounts[i].admin) {
          L.marker([data.accounts[i].geocoding[0].latitude, data.accounts[i].geocoding[0].longitude]).bindPopup(
-           "<h1>"+ data.accounts[i].structureName +"</h1><p>"+data.accounts[i].geocoding[0].formattedAddress+"</p><p>"+data.accounts[i].website+"</p><p>"+data.accounts[i].metro+"</p>").addTo(map);
+           "<h3>"+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type+"</li><li>"+data.accounts[i].time+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public+"</li><li>"+data.accounts[i].adressNb+" "+data.accounts[i].adressType+" "+data.accounts[i].adressName+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro+"</li></ul></div>").addTo(map);
        }
+       
+       if(data.accounts[i].perm2) {
+         L.marker([data.accounts[i].geocoding2[0].latitude, data.accounts[i].geocoding2[0].longitude], {icon: greenIcon}).bindPopup(
+           "<h3> Hors les murs de "+ data.accounts[i].structureName +"</h3><div class='liste' style='font-size:1.3em;'><ul><li>"+data.accounts[i].type2+"</li><li>"+data.accounts[i].time2+"</li><li>"+meeting+"</li><li>"+data.accounts[i].public2+"</li><li>"+data.accounts[i].adressNb2+" "+data.accounts[i].adressType2+" "+data.accounts[i].adressName2+"</li><li>"+data.accounts[i].structureMail+"</li><li>"+data.accounts[i].structurePhone+"</li><li>"+data.accounts[i].metro2+"</li></ul></div>").addTo(map);
+
+       }
+       
+     }
      }

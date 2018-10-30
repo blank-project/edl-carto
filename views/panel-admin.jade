@@ -1,7 +1,10 @@
-extends layout
+extends layout-admin
 
 block content
   .container(style="margin-top: 100px;")
+    - if (messages.info)
+        .message.info
+          span= messages.info 
     h1 Nouvelle structure
     br
     form(role='form', action="/register",method="post", style='max-width: 300px;')
@@ -11,10 +14,11 @@ block content
           input.form-control(type='email', name="email", placeholder='Enter Email')
       .form-group
         input.form-control(type='password', name="password", placeholder='Password')
-      button.btn.btn-default(type='submit') Submit
-       &nbsp;
+      if errUser
+       p(style='font-weight: bold;')=errUser
+      button.btn.btn-primary(type='submit') Submit
       a(href='/')
-        button.btn.btn-primary(type="button") Cancel
+        button.btn.btn-default(type="button") Cancel
         
     table.table(style="margin-top: 50px;")
       thead
@@ -22,6 +26,7 @@ block content
           th Identifiant
           th Mail
           th Modifier
+          th Changer le mot de passe
           th Supprimer
       tbody
         each item in accounts
@@ -29,5 +34,11 @@ block content
             td= item.username
             td= item.email
             td
+              a(href='/panel-admin-update?q='+item.username) 
+                span.glyphicon.glyphicon-pencil
             td
-              a(href='/remove?id='+item._id) X
+             a(href='/password?q='+item.username) 
+               span.glyphicon.glyphicon-lock
+            td
+              a(href='/remove?id='+item._id)
+                span.glyphicon.glyphicon-remove

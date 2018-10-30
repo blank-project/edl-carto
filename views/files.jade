@@ -1,0 +1,38 @@
+extends layout-admin
+
+block content
+  .container(style="margin-top: 100px;")
+    h1 Envoyer un nouveau fichier
+    
+    form#uploadForm(ref='uploadForm', action='/upload', method='post', enctype='multipart/form-data')
+      label(for='description') Courte description :
+      br
+      input(type='text', name='description', id='description', placeholder='Description')
+      br
+      br
+      input(type='file', name='sampleFile')
+      br
+      input(type='submit', value='Envoyer!')
+    br
+    br  
+    h1 Fichiers disponibles
+    table.table(style="margin-top: 50px;")
+      thead
+        tr
+          th Utilisateur
+          th Fichier
+          th Description
+          th Date
+          th Supprimer
+      tbody
+        each item in files
+          tr
+            td= item.username
+            td
+              a(href='/data/'+item.name) 
+                = item.name
+            td= item.description
+            td= item.time
+            td
+              a(href='/remove-file?id='+item._id)
+                span.glyphicon.glyphicon-remove
