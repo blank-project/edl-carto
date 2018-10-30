@@ -47,7 +47,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://127.0.0.1:27017/edl');
+mongoose.connect(process.env.DB);
 
 
 
@@ -69,8 +69,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, function () {
-  console.log('Listening on port 3000!')
+app.listen(process.env.PORT, function () {
+  console.log('Listening on port '+process.env.PORT)
 })
 
 module.exports = app;
